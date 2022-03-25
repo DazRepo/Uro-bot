@@ -1,9 +1,9 @@
 {
-  "name": "𝐁𝐀𝐁𝐘𝐌𝐔-𝐔𝐒𝐄𝐑𝐁𝐎𝐓",
-  "description": "[𝐁𝐀𝐁𝐘𝐌𝐔-𝐔𝐒𝐄𝐑𝐁𝐎𝐓] userbot Telegram modular yang berjalan pada Python 3.9+",
-  "logo": "https://telegra.ph/file/5a8a374e1217b36bba5ca.png",
-  "keywords": ["telegram", "userbot", "Babymu-Userbot", "modular", "python"],
-  "repository": "https://github.com/Babymu21/BabyUserbot",
+  "name": "ㄩ尺ㄖ 乃ㄖㄒ",
+  "description": "[ㄩ尺ㄖ 乃ㄖㄒ] userbot Telegram modular yang berjalan pada Python 3.9+",
+  "logo": "https://telegra.ph/file/e8a48adf91c911ffa9f57.jpg",
+  "keywords": ["telegram", "userbot", "Uro-bot", "modular", "python"],
+  "repository": "https://github.com/DazRepo/Uro-bot",
   "stack": "container",
   "env": {
     "API_KEY": {
