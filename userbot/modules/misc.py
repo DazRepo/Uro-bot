@@ -61,9 +61,9 @@ async def shutdown_bot(event):
         await event.client.send_message(
             BOTLOG_CHATID,
             "**#SHUTDOWN** \n"
-            "**𝐁𝐀𝐁𝐘𝐌𝐔-𝐔𝐒𝐄𝐑𝐁𝐎𝐓** telah di matikan!\nJika ingin menghidupkan kembali silahkan buka heroku",
+            "**ㄩ尺ㄖ 乃ㄖㄒ** telah di matikan!\nJika ingin menghidupkan kembali silahkan buka heroku",
         )
-    await edit_or_reply(event, "**𝐁𝐀𝐁𝐘𝐌𝐔-𝐔𝐒𝐄𝐑𝐁𝐎𝐓 Berhasil di matikan!**")
+    await edit_or_reply(event, "**ㄩ尺ㄖ 乃ㄖㄒ Berhasil di matikan!**")
     if HEROKU_APP is not None:
         HEROKU_APP.process_formation()["worker"].scale(0)
     else:
@@ -74,10 +74,10 @@ async def shutdown_bot(event):
 async def restart_bot(event):
     if event.sender_id in SUDO_USERS:
         return
-    await edit_or_reply(event, "**𝐁𝐀𝐁𝐘𝐌𝐔-𝐔𝐒𝐄𝐑𝐁𝐎𝐓 Berhasil di Restart**")
+    await edit_or_reply(event, "**ㄩ尺ㄖ 乃ㄖㄒ Berhasil di Restart**")
     if BOTLOG_CHATID:
         await event.client.send_message(
-            BOTLOG_CHATID, "#RESTART \n" "**𝐁𝐀𝐁𝐘𝐌𝐔-𝐔𝐒𝐄𝐑𝐁𝐎𝐓 Berhasil Di Restart**"
+            BOTLOG_CHATID, "#RESTART \n" "**ㄩ尺ㄖ 乃ㄖㄒ Berhasil Di Restart**"
         )
     args = [sys.executable, "-m", "userbot"]
     execle(sys.executable, *args, environ)
@@ -88,7 +88,7 @@ async def reedme(event):
     await edit_or_reply(
         event,
         "**Berikut sesuatu untuk kamu baca:**\n"
-        "\n┌❏ [Userbot Repo](https://github.com/Babymu21/babymu-Userbot/blob/PocongUserbot/README.md)"
+        "\n┌❏ [Userbot Repo](https://github.com/DazRepo/Uro-bot/blob/PocongUserbot/README.md)"
         "\n└❏ [Setup Guide - LastFM Module](https://telegra.ph/How-to-set-up-LastFM-module-for-Paperplane-userbot-11-02)",
     )
 
@@ -111,12 +111,12 @@ async def repeat(event):
 async def repo_is_here(event):
     xx = await edit_or_reply(event, "`Processing...`")
     await xx.edit(
-        f"**Hey**, Saya Menggunakan  **Babymu-Userbot** \n\n"
+        f"**Hey**, Saya Menggunakan  **Uro-bot** \n\n"
         f"┌❏ **UserbotVersion :** `{BOT_VER}@{branch}`\n"
-        f"├❏ **GroupSupport :** [passcolmekk](t.me/passcolmekk) \n"
-        f"├❏ **Channel  :** [passcolmekk](t.me/passcolmekk)\n"
-        f"├❏ **OwnerRepo :** [Xxxyzbabymuuu](t.me/Xxxyzbabymuuu)\n"
-        f"└❏ **Repo :** [Babymu](https://github.com/Babymu21/Babymu-Userbot)\n"
+        f"├❏ **GroupSupport :** [paradisesid](t.me/paradasiesid) \n"
+        f"├❏ **Channel  :** [paradasiesid](t.me/paradasiesid)\n"
+        f"├❏ **OwnerRepo :** [xdazher](t.me/xdazher)\n"
+        f"└❏ **Repo :** [DazRepo](https://github.com/DazRepo/Uro-bot)\n"
     )
 
 
@@ -126,9 +126,9 @@ async def string_is_here(event):
         event,
         "**List Bot**\n"
         "\n┌❏ **GET STRING BOT:**"
-        "\n├❏ [[ KLIK DISINI ]](https://t.me/StringZaenbot)"
+        "\n├❏ [[ KLIK DISINI ]](https://t.me/DazStringbot)"
         "\n├❏ **GET API ID & API HASH :**"
-        "\n└❏ [[ KLIK DISINI ]](https://t.me/pocongscrapbot)",
+        "\n└❏ [[ KLIK DISINI ]](https://t.me/DazAppbot)",
     )
 
 
