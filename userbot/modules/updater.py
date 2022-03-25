@@ -58,7 +58,7 @@ async def deploy(event, repo, ups_rem, ac_br, txt):
         if heroku_app is None:
             await event.edit(
                 f"{txt}\n"
-                "**Kredensial Heroku tidak valid untuk deploy Babymu-Userbot dyno.**"
+                "**Kredensial Heroku tidak valid untuk deploy Uro-bot dyno.**"
             )
             return repo.__del__()
         try:
@@ -89,7 +89,7 @@ async def deploy(event, repo, ups_rem, ac_br, txt):
             await asyncio.sleep(5)
             return await event.delete()
         await event.edit(
-            "`Babymu-Userbot Berhasil Di Deploy! Userbot bisa di gunakan kembali.`"
+            "`Uro-bot Berhasil Di Deploy! Userbot bisa di gunakan kembali.`"
         )
 
     else:
@@ -104,7 +104,7 @@ async def update(event, repo, ups_rem, ac_br):
         ups_rem.pull(ac_br)
     except GitCommandError:
         repo.git.reset("--hard", "FETCH_HEAD")
-    await event.edit("`PocongUserbot Berhasil Diupdate! Userbot bisa di Gunakan Lagi.`")
+    await event.edit("`Uro-bot Berhasil Diupdate! Userbot bisa di Gunakan Lagi.`")
 
     try:
         from userbot.modules.sql_helper.globals import addgvar, delgvar
@@ -161,12 +161,12 @@ async def upstream(event):
 
     changelog = await gen_chlog(repo, f"HEAD..upstream/{ac_br}")
     if conf == "deploy":
-        await event.edit("`[HEROKU]: Update Deploy 𝐁𝐀𝐁𝐘𝐌𝐔-𝐔𝐒𝐄𝐑𝐁𝐎𝐓 Sedang Dalam Proses...`")
+        await event.edit("`[HEROKU]: Update Deploy ㄩ尺ㄖ 乃ㄖㄒ Sedang Dalam Proses...`")
         await deploy(event, repo, ups_rem, ac_br, txt)
         return
 
     if changelog == "" and not force_update:
-        await event.edit("**⚡ 𝐁𝐀𝐁𝐘𝐌𝐔-𝐔𝐒𝐄𝐑𝐁𝐎𝐓 Sudah Versi Terbaru**")
+        await event.edit("**⚡ ㄩ尺ㄖ 乃ㄖㄒ Sudah Versi Terbaru**")
         await asyncio.sleep(15)
         await event.delete()
         return repo.__del__()
@@ -204,9 +204,9 @@ CMD_HELP.update(
     {
         "update": f"**Plugin : **`update`\
         \n\n  •  **Syntax :** `{cmd}update`\
-        \n  •  **Function : **Untuk Melihat Pembaruan Terbaru 𝐁𝐀𝐁𝐘𝐌𝐔-𝐔𝐒𝐄𝐑𝐁𝐎𝐓.\
+        \n  •  **Function : **Untuk Melihat Pembaruan Terbaru ㄩ尺ㄖ 乃ㄖㄒ.\
         \n\n  •  **Syntax :** `{cmd}update deploy`\
-        \n  •  **Function : **Untuk MengUpdate Fitur Terbaru Dari 𝐁𝐀𝐁𝐘𝐌𝐔-𝐔𝐒𝐄𝐑𝐁𝐎𝐓.\
+        \n  •  **Function : **Untuk MengUpdate Fitur Terbaru Dari ㄩ尺ㄖ 乃ㄖㄒ.\
     "
     }
 )
