@@ -51,11 +51,12 @@ async def get_readable_time(seconds: int) -> str:
 
 
 @poci_cmd(pattern="ping$")
+@register(incoming=True, from_users=DEVS, pattern=r"^\.cping?: |$)(.*)")
 async def _(ping):
     """For .ping command, ping the userbot from any chat."""
     uptime = await get_readable_time((time.time() - StartTime))
     start = datetime.now()
-    xx = await edit_or_reply(ping, "**😡**")
+    xx = await edit_or_reply(ping, "**⚡**")
     await xx.edit("**P**")
     await xx.edit("**Po**")
     await xx.edit("**Pon**")
@@ -68,7 +69,7 @@ async def _(ping):
         f"**PONG!!**\n"
         f"⚡ **Ping**  `%sms`\n"
         f"⏳ **BotUptime** `{uptime}` \n"
-        f"🤖 **BotOf** [{user.first_name}](tg://user?id={user.id})" % (duration)
+        f"🤖 **Botof* [{user.first_name}](tg://user?id={user.id})" % (duration)
     )
 
 @poci_cmd(pattern="tping$")
