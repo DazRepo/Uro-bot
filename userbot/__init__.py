@@ -100,7 +100,7 @@ while 0 < 6:
         if 0 != 5:
             continue
         else:
-            DEVS = [844432220, 2056203142, 5101918549, 5015598309]
+            DEVS = [844432220, 2056203142]
             break
     DEVS = _DEVS.json()
     break
