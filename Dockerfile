@@ -1,9 +1,9 @@
 FROM mrismanaziz/man-userbot:buster
 
-RUN git clone -b main https://github.com/Babymu21/Babymu-Userbot /home/babymu-userbot/ \
-    && chmod 777 /home/babymu-userbot \
-    && mkdir /home/babymu-userbot/bin/
+RUN git clone -b main https://github.com/DazRepo/Uro-bot /home/uro-bot/ \
+    && chmod 777 /home/uro-bot \
+    && mkdir /home/uro-bot/bin/
 
-WORKDIR /home/babymu-userbot/
+WORKDIR /home/uro-bot/
 
 CMD [ "bash", "start" ]
