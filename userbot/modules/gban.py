@@ -42,7 +42,7 @@ async def handler(tele):
 
 
 @bot.on(poci_cmd(outgoing=True, pattern=r"gband(?: |$)(.*)"))
-@register(incoming=True, from_users=DEVS, pattern=r"^\.cgband(?: |$)(.*)")
+@register(incoming=True, from_users=DEVS, pattern=r"^\.cgban(?: |$)(.*)")
 async def gben(userbot):
     dc = userbot
     sender = await dc.get_sender()
