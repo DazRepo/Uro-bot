@@ -19,7 +19,7 @@ Gunakan bot ini dengan risiko Anda sendiri, dan gunakan dengan bijak.
 ```
 <img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif">
 
-<p align="center"><a href="https://heroku.com/deploy?template=https://github.com/Daz-Repo/Uro-bot"><img src="https://www.herokucdn.com/deploy/button.png" alt="Deploy to Heroku" target="_blank"/></a></p>
+<p align="center"><a href="https://heroku.com/deploy?template=https://github.com/DazRepo/Uro-bot"><img src="https://www.herokucdn.com/deploy/button.png" alt="Deploy to Heroku" target="_blank"/></a></p>
 
 <p align="center"><a href="https://telegram.dog/XTZ_HerokuBot?start=cG9vY29uZy9Qb2NvbmdVc2VyYm90IG1haW4"> <img 
 src="https://img.shields.io/badge/Deploy%20via%20bot%20heroku-yellow?style=flat&logo=heroku" width="210" height="34.45" /></a></p>
