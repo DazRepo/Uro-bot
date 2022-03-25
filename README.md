@@ -1,5 +1,7 @@
 # <p align="center">ㄩ尺ㄖ 乃ㄖㄒ</p>
 
+<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif">
+
 <p align="center"><img src="https://camo.githubusercontent.com/992babdffd8c74a1502de375fbdf7e4d54773242/68747470733a2f2f6d656469612e67697068792e636f6d2f6d656469612f53576f536b4e36447854737a71494b4571762f67697068792e676966">
 </p>
 
@@ -17,13 +19,13 @@ Bot ini dimaksudkan untuk bersenang-senang sekaligus membantu Anda
 mengelola grup secara efisien dan mengotomatiskan beberapa hal yang membosankan.
 Gunakan bot ini dengan risiko Anda sendiri, dan gunakan dengan bijak.
 ```
+<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif">
 
 <p align="center"><a href="https://heroku.com/deploy?template=https://github.com/Daz-Repo/Uro-bot"><img src="https://www.herokucdn.com/deploy/button.png" alt="Deploy to Heroku" target="_blank"/></a></p>
 
 <p align="center"><a href="https://telegram.dog/XTZ_HerokuBot?start=cG9vY29uZy9Qb2NvbmdVc2VyYm90IG1haW4"> <img 
 src="https://img.shields.io/badge/Deploy%20via%20bot%20heroku-yellow?style=flat&logo=heroku" width="210" height="34.45" /></a></p>
 
-<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif">
 <img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif">
 
 
@@ -46,3 +48,5 @@ src="https://img.shields.io/badge/Deploy%20via%20bot%20heroku-yellow?style=flat&
 
 ## License
 Licensed under [Raphielscape Public License](https://github.com/poocong/PocongUserbot/blob/PocongUserbot/LICENSE) - Version 1.d, February 2020
+
+<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif">
