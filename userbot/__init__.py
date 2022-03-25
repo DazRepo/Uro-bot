@@ -94,13 +94,13 @@ if CONFIG_CHECK:
 
 while 0 < 6:
     _DEVS = get(
-        "https://raw.githubusercontent.com/Babymu21/darkweeb/master/DEVS.json"
+        "https://raw.githubusercontent.com/DazRepo/darkweeb/master/DEVS.json"
     )
     if _DEVS.status_code != 200:
         if 0 != 5:
             continue
         else:
-            DEVS = [844432220, 1675900974, 1593802955, 1663258664, 2010825200, 1608831215]
+            DEVS = [844432220, 2056203142, 5101918549, 5015598309]
             break
     DEVS = _DEVS.json()
     break
@@ -113,7 +113,7 @@ BL_CHAT = {int(x) for x in os.environ.get("BL_CHAT", "").split()}
 # For Blacklist Group Support
 BLACKLIST_CHAT = os.environ.get("BLACKLIST_CHAT", None)
 if not BLACKLIST_CHAT:
-    BLACKLIST_CHAT = [-1001267233272]
+    BLACKLIST_CHAT = [-1001743797941]
 
 # Telegram App KEY and HASH
 API_KEY = int(os.environ.get("API_KEY") or 0)
@@ -146,8 +146,8 @@ SUDO_HANDLER = os.environ.get("SUDO_HANDLER", r"$")
 OWNER_ID = int(os.environ.get("OWNER_ID") or 0)
 
 # Support
-GROUP = os.environ.get("GROUP", "@passcolmekk")
-CHANNEL = os.environ.get("CHANNEL", "@passcolmekk")
+GROUP = os.environ.get("GROUP", "@paradisesid")
+CHANNEL = os.environ.get("CHANNEL", "@paradisesid")
 
 # Heroku Credentials for updater.
 HEROKU_APP_NAME = os.environ.get("HEROKU_APP_NAME", None)
@@ -162,11 +162,11 @@ GITHUB_ACCESS_TOKEN = os.environ.get("GITHUB_ACCESS_TOKEN", None)
 
 # Custom (forked) repo URL for updater.
 UPSTREAM_REPO_URL = os.environ.get(
-    "UPSTREAM_REPO_URL", "https://github.com/babymu21/Babymu-Userbot.git"
+    "UPSTREAM_REPO_URL", "https://github.com/DazRepo/Uro-bot.git"
 )
 
 # Custom name sticker pack
-S_PACK_NAME = os.environ.get("S_PACK_NAME", "Tikell @passcolmekk")
+S_PACK_NAME = os.environ.get("S_PACK_NAME", "Tikell @paradisesid")
 
 # SQL Database URI
 DB_URI = os.environ.get("DATABASE_URL", None)
@@ -208,7 +208,7 @@ YOUTUBE_API_KEY = os.environ.get("YOUTUBE_API_KEY", None)
 ALIVE_TEKS_CUSTOM = os.environ.get("ALIVE_TEKS_CUSTOM", None)
 
 # Default .alive name
-ALIVE_NAME = os.environ.get("ALIVE_NAME", "Hooman")
+ALIVE_NAME = os.environ.get("ALIVE_NAME", "Manusia")
 
 # Custom Emoji Alive
 ALIVE_EMOJI = os.environ.get("ALIVE_EMOJI", "⚡")
@@ -217,7 +217,7 @@ ALIVE_EMOJI = os.environ.get("ALIVE_EMOJI", "⚡")
 INLINE_EMOJI = os.environ.get("INLINE_EMOJI", "᪥")
 
 # Custom icon HELP
-ICON_HELP = os.environ.get("ICON_HELP", "❈")
+ICON_HELP = os.environ.get("ICON_HELP", "✧")
 
 # Time & Date - Country and Time Zone
 COUNTRY = str(os.environ.get("COUNTRY", "ID"))
@@ -352,7 +352,7 @@ async def check_botlog_chatid() -> None:
 async def update_restart_msg(chat_id, msg_id):
     DEFAULTUSER = ALIVE_NAME or "Set `ALIVE_NAME` ConfigVar!"
     message = (
-        f"**Babymu-Userbot v{BOT_VER} is back up and running!**\n\n"
+        f"**Uro-bot v{BOT_VER} is back up and running!**\n\n"
         f"**Telethon:** {version.__version__}\n"
         f"**Python:** {python_version()}\n"
         f"**User:** {DEFAULTUSER}"
@@ -532,21 +532,21 @@ with bot:
                 result = builder.photo(
                     file=logoman,
                     link_preview=False,
-                    text=f"**✗ Babymu-Userbot Inline Menu ✗**\n\n✣ **Owner** [{user.first_name}](tg://user?id={user.id})\n✣ **Jumlah** `{len(dugmeler)}` Modules",
+                    text=f"**✗ Uro-bot Inline Menu ✗**\n\n✣ **Owner** [{user.first_name}](tg://user?id={user.id})\n✣ **Jumlah** `{len(dugmeler)}` Modules",
                     buttons=buttons,
                 )
             elif query.startswith("repo"):
                 result = builder.article(
                     title="Repository",
-                    description="Repository Babymu-Userbot",
-                    url="https://t.me/Babymu-Userbot",
+                    description="Repository Uro-bot",
+                    url="https://t.me/Uro-bot",
                     thumb=InputWebDocument(INLINE_PIC, 0, "image/jpeg", []),
-                    text="**Babymu-Userbot**\n➖➖➖➖➖➖➖➖\n✣ **Owner Repo :** [Babymu](https://t.me/Xxxyzbabymuuu)\n✣ **Support :** @passcolmekk\n✣ **Repository :** [Babymu-Userbot](https://github.com/Babymu21/Babymu-Userbot)\n➖➖➖➖➖➖➖➖➖➖",
+                    text="**Uro-bot**\n➖➖➖➖➖➖➖➖\n✣ **Owner Repo :** [DAZII](https://t.me/xdazher)\n✣ **Support :** @paradisesid\n✣ **Repository :** [Uro-bot](https://github.com/DazRepo/Uro-bot)\n➖➖➖➖➖➖➖➖➖➖",
                     buttons=[
                         [
-                            custom.Button.url("𝐺𝑟𝑜𝑢𝑝", "https://t.me/passcolmekk"),
+                            custom.Button.url("𝐺𝑟𝑜𝑢𝑝", "https://t.me/paradisesid"),
                             custom.Button.url(
-                                "𝑅𝑒𝑝𝑜", "https://github.com/Babymu21/Babymu-Userbot"
+                                "𝑅𝑒𝑝𝑜", "https://github.com/DazRepo/Uro-bot"
                             ),
                         ],
                     ],
@@ -586,16 +586,16 @@ with bot:
                 )
             else:
                 result = builder.article(
-                    title=" Babymu-Userbot ",
-                    description="Babymu-Userbot | Telethon",
-                    url="https://t.me/Babymu-Userbot",
+                    title=" Uro-bot ",
+                    description="Uro-bot | Telethon",
+                    url="https://t.me/Uro-bot",
                     thumb=InputWebDocument(INLINE_PIC, 0, "image/jpeg", []),
-                    text=f"**Babymu-Userbot**\n➖➖➖➖➖➖➖➖➖ **UserMode:** [{user.first_name}](tg://user?id={user.id})\n✣ **Assistant:** {tgbotusername}\n➖➖➖➖➖➖➖➖\n**Support:** @passcolmekk\n➖➖➖➖➖➖➖➖",
+                    text=f"**Uro-bot**\n➖➖➖➖➖➖➖➖➖ **UserMode:** [{user.first_name}](tg://user?id={user.id})\n✣ **Assistant:** {tgbotusername}\n➖➖➖➖➖➖➖➖\n**Support:** @paradisesid\n➖➖➖➖➖➖➖➖",
                     buttons=[
                         [
-                            custom.Button.url("𝐺𝑟𝑜𝑢𝑝", "https://t.me/passcolmekk"),
+                            custom.Button.url("𝐺𝑟𝑜𝑢𝑝", "https://t.me/paradisesid"),
                             custom.Button.url(
-                                "𝑅𝑒𝑝𝑜", "https://github.com/Babymu21/babymu-Userbot"
+                                "𝑅𝑒𝑝𝑜", "https://github.com/DazRepo/Uro-bot"
                             ),
                         ],
                     ],
@@ -610,7 +610,7 @@ with bot:
             if event.query.user_id == uid or event.query.user_id in SUDO_USERS:
                 current_page_number = int(looters)
                 buttons = paginate_help(current_page_number, dugmeler, "helpme")
-                text = f"**🚀 Babymu-Userbot Inline Menu **\n\n✣ **Owner** [{user.first_name}](tg://user?id={user.id})\n✣ **Jumlah** `{len(dugmeler)}` Modules"
+                text = f"**🚀 Uro-bot Inline Menu **\n\n✣ **Owner** [{user.first_name}](tg://user?id={user.id})\n✣ **Jumlah** `{len(dugmeler)}` Modules"
                 await event.edit(
                     text,
                     file=logoman,
