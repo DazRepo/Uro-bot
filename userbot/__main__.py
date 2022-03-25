@@ -31,7 +31,7 @@ try:
     ).json()
     if user.id in blacklist:
         LOGS.warning(
-            "MAKANYA GA USAH BERTINGKAH GOBLOK, USERBOTnya GUA MATIIN NAJISS BET DIPAKE BOCIL KEK LU.\nCredits: @Pocongonlen"
+            "MAKANYA GA USAH BERTINGKAH GOBLOK, USERBOTnya GUA MATIIN NAJISS BET DIPAKE BOCIL KEK LU.\nCredits: @xdazher"
         )
         sys.exit(1)
 except Exception as e:
@@ -42,10 +42,10 @@ for module_name in ALL_MODULES:
     imported_module = import_module("userbot.modules." + module_name)
 
 LOGS.info(
-    f"Jika {user.first_name} Membutuhkan Bantuan, Silahkan Tanyakan di ke https://t.me/Mafia_Tobatz"
+    f"Jika {user.first_name} Membutuhkan Bantuan, Silahkan Tanyakan di ke https://t.me/xdazher"
 )
 
-LOGS.info(f"𝐁𝐀𝐁𝐘𝐌𝐔-𝐔𝐒𝐄𝐑𝐁𝐎𝐓 ⚙️ V{BOT_VER} [🔥 BERHASIL DIAKTIFKAN! 🔥]")
+LOGS.info(f"ㄩ尺ㄖ 乃ㄖㄒ ⚙️ V{BOT_VER} [🔥 BERHASIL DIHIDUPKAN! 🔥]")
 
 
 async def pocong_userbot_on():
@@ -53,12 +53,12 @@ async def pocong_userbot_on():
         if BOTLOG_CHATID != 0:
             await bot.send_message(
                 BOTLOG_CHATID,
-                f"🔥 **𝐁𝐀𝐁𝐘𝐌𝐔-𝐔𝐒𝐄𝐑𝐁𝐎𝐓 Berhasil Di Aktifkan**\n━━\n➠ **Userbot Version -** `{BOT_VER}@{branch}`\n➠ **Ketik** `{cmd}alive` **untuk Mengecheck Bot**\n━━",
+                f"🔥 **ㄩ尺ㄖ 乃ㄖㄒ Berhasil Di Aktifkan**\n━━\n➠ **Userbot Version -** `{BOT_VER}@{branch}`\n➠ **Ketik** `{cmd}alive` **untuk Mengecheck Bot**\n━━",
             )
     except Exception as e:
         LOGS.info(str(e))
     try:
-        await bot(JoinChannelRequest("@passcolmekk"))
+        await bot(JoinChannelRequest("@paradisesid"))
     except BaseException:
         pass
     try:
@@ -66,7 +66,7 @@ async def pocong_userbot_on():
     except BaseException:
         pass
     try:
-        await bot(JoinChannelRequest("@passcolmekk"))
+        await bot(JoinChannelRequest("@paradisesid"))
     except BaseException:
         pass
     
