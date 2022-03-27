@@ -5,22 +5,22 @@ Multi-featured Telegram userbot dev team.
 ___
 ## Connect 🔗
 <p align="left">
-    <a href="https://telegram.dog/xdazhere" target="_blank">
+    <a href="https://telegram.dog/xdazher" target="_blank">
     <img src=https://img.shields.io/badge/telegram-%2300acee.svg?&style=for-the-badge&logo=telegram&logoColor=white alt=telegram style="margin-bottom: 5px;" />
     </a>
-    <a href="https://xdazhere" target="_blank">
+    <a href="https://xdazher" target="_blank">
     <img src="https://img.shields.io/badge/Documentation%20-%230077B5.svg?&style=for-the-badge&logo=docs&logoColor=white" alt="ultroid.tech" />
     </a>
     <a href="https://www.instagram.com/xdazhere/">
     <img src="https://img.shields.io/badge/Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white">
     </a>
-    <a href="https://www.twitter.com/xdazhere/">
+    <a href="https://www.twitter.com/rujak/">
     <img src="https://img.shields.io/badge/twitter-%2300acee?style=for-the-badge&logo=twitter&logoColor=white">
     </a>
-    <a href="https://github.com/xdazhere target="_blank">
+    <a href="https://github.com/DazRepo target="_blank">
     <img src=https://img.shields.io/badge/github-%2324292e.svg?&style=for-the-badge&logo=github&logoColor=white alt=github style="margin-bottom: 5px;" />
     </a>
-    <a href="mailto:xdazhere.protonmail.ch">
+    <a href="mailto: appdazher.protonmail.ch">
     <img alt="Gmail" src="https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white" />
     </a>
 </p>
