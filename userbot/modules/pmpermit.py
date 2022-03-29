@@ -17,12 +17,8 @@ from userbot.events import poci_cmd, register
 from userbot.utils import edit_delete, edit_or_reply
 
 DEF_UNAPPROVED_MSG = (
-    "❏ PERINGATAN!\n"
-    "┌ Saya belum menyetujui kmu\n"
-    "├ Tunggu sampai saya menyetujui\n" 
-    "├ Cht kmu, jangan spam cht\n"
-    "├ atau kmu akan otomatis\n"
-    "├ terblokir.\n"
+    "❏ WARNING!\n"
+    "┌ Sabar Owner Gua Belum on\n"
     "└ Bot by **Uro-bot**\n"
     "┌━━━━━━━━━━━━\n"
     "├❏ **𝗦𝘂𝗽𝗽𝗼𝗿𝘁: @paradisesid**\n"
