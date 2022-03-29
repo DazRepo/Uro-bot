@@ -80,10 +80,10 @@ async def _(pong):
     end = datetime.now()
     duration = (end - start).microseconds / 1000
     await pong.edit(
-        f"**⚡Pongs ᴘɪɴɢ⚡**\n"
-        f"⚡ **ᴘɪɴɢ:** "
+        f"**Pongs ᴘɪɴɢ**\n"
+        f"**ᴘɪɴɢ:** "
         f"`%sms` \n"
-        f"⚡ **ᴏɴʟɪɴᴇ:** "
+        f"**ᴏɴʟɪɴᴇ:** "
         f"`{uptime}` \n" % (duration))
 
 #  .Coded by alvin Lord-Userbot
