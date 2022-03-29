@@ -60,6 +60,8 @@ async def _(ping):
     duration = (end - start).microseconds / 1000
     user = await bot.get_me()
     await xx.edit(
+    await xx.edit("Pong")
+    await xx.edit("Pong!")
     end = datetime.now()
         f"**PONG!!**\n"
         f"**Ping**  `%sms`\n"
