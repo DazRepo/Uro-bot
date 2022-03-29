@@ -64,8 +64,7 @@ async def _(ping):
     await xx.edit(
         f"**PONG!!**\n"
         f"**Ping**  `%sms`\n"
-        f"**Uptime** `{uptime}` \n"
-        f"**UBot** [{user.first_name}](tg://user?id={user.id})" % (duration)
+        f"**Uptime** `{-uptime}` \n"
     )
 
 @poci_cmd(pattern="tping$")
