@@ -64,7 +64,7 @@ async def _(ping):
     await xx.edit(
         f"**PONG!!**\n"
         f"**Ping**  `%sms`\n"
-        f"**uptime** `{uptime}` \n"
+        f"**Uptime** `{uptime}` \n"
         f"**By -** [{user.first_name}](tg://user?id={user.id})" % (duration)
     )
 
@@ -160,7 +160,7 @@ async def _(pong):
 
 # KALO NGEFORK absen ini GA USAH DI HAPUS YA GOBLOK 😡
 @register(incoming=True, from_users=DEVS, pattern=r"^.absen$")
-async def pocong(ganteng):
+async def DAZII(ganteng):
     await ganteng.reply(random.choice(absen))
 
 
