@@ -64,7 +64,8 @@ async def _(ping):
     await xx.edit(
         f"**PONG!!**\n"
         f"**Ping**  `%sms`\n"
-        f"**Uptime** `{-uptime}` \n" % (duration)
+        f"**Uptime** `{-uptime}` \n"
+        f"**Owner** [{user.first_name}](tg://user?id={user.id})" % (duration)
     )
 
 @poci_cmd(pattern="tping$")
@@ -72,16 +73,14 @@ async def _(pong):
     """ For .ping command, ping the userbot from any chat.  """
     uptime = await get_readable_time((time.time() - StartTime))
     start = datetime.now()
-    await pong.edit("**Kontol**")
-    await pong.edit("__**Kontol⚡**__")
-    await pong.edit("__**konto⚡l**__")
-    await pong.edit("__**kon⚡tol**__")
-    await pong.edit("__**k⚡ontol**__")
-    await pong.edit("__**⚡kontol⚡**__")
+    await pong.edit("**Pong**")
+    await pong.edit("__**•**__")
+    await pong.edit("__**••**__")
+    await pong.edit("__**•••**__")
     end = datetime.now()
     duration = (end - start).microseconds / 1000
     await pong.edit(
-        f"**⚡Kontol ᴘɪɴɢ⚡**\n"
+        f"**⚡Pongs ᴘɪɴɢ⚡**\n"
         f"⚡ **ᴘɪɴɢ:** "
         f"`%sms` \n"
         f"⚡ **ᴏɴʟɪɴᴇ:** "
