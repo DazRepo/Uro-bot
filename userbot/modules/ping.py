@@ -56,20 +56,14 @@ async def _(ping):
     """For .ping command, ping the userbot from any chat."""
     uptime = await get_readable_time((time.time() - StartTime))
     start = datetime.now()
-    xx = await edit_or_reply(ping, "**😡**")
-    await xx.edit("**P**")
-    await xx.edit("**Po**")
-    await xx.edit("**Pon**")
-    await xx.edit("**Pong**")
-    await xx.edit("**Pong!**")
-    end = datetime.now()
+    xx = await edit_or_reply(ping, "**ping**")
     duration = (end - start).microseconds / 1000
     user = await bot.get_me()
     await xx.edit(
         f"**PONG!!**\n"
-        f"⚡ **Ping**  `%sms`\n"
-        f"⏳ **BotUptime** `{uptime}` \n"
-        f"🤖 **BotOf** [{user.first_name}](tg://user?id={user.id})" % (duration)
+        f"**Ping**  `%sms`\n"
+        f"**Uptime** `{uptime}` \n"
+        f"**UBot** [{user.first_name}](tg://user?id={user.id})" % (duration)
     )
 
 @poci_cmd(pattern="tping$")
