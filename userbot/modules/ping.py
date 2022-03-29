@@ -65,7 +65,7 @@ async def _(ping):
         f"**PONG!!**\n"
         f"**Ping**  `%sms`\n"
         f"**Uptime** `{-uptime}` \n"
-        f"**Owner** [{user.first_name}](tg://user?id={user.id})" % (duration)
+        f"**Botof** [{user.first_name}](tg://user?id={user.id})" % (duration)
     )
 
 @poci_cmd(pattern="tping$")
