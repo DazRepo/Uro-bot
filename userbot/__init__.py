@@ -243,20 +243,20 @@ ALIVE_USERNAME = os.environ.get("ALIVE_USERNAME", None)
 
 # Default .alive logo
 ALIVE_LOGO = (
-    os.environ.get("ALIVE_LOGO") or "https://telegra.ph/file/5a8a374e1217b36bba5ca.png"
+    os.environ.get("ALIVE_LOGO") or "https://telegra.ph/file/13fe1d469ded58c68d34d.jpg"
 )
 
 INLINE_PIC = (
-    os.environ.get("INLINE_PIC") or "https://telegra.ph/file/5a8a374e1217b36bba5ca.png"
+    os.environ.get("INLINE_PIC") or "https://telegra.ph/file/13fe1d469ded58c68d34d.jpg"
 )
 
 # Picture For VCPLUGIN
 PLAY_PIC = (
-    os.environ.get("PLAY_PIC") or "https://telegra.ph/file/5a8a374e1217b36bba5ca.png"
+    os.environ.get("PLAY_PIC") or "https://telegra.ph/file/13fe1d469ded58c68d34d.jpg"
 )
 
 QUEUE_PIC = (
-    os.environ.get("QUEUE_PIC") or "https://telegra.ph/file/5a8a374e1217b36bba5ca.png"
+    os.environ.get("QUEUE_PIC") or "https://telegra.ph/file/13fe1d469ded58c68d34d.jpg"
 )
 
 # Last.fm Module
