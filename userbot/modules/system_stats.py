@@ -172,13 +172,13 @@ async def amireallyalive(alive):
     output = (
         f"**[ㄩ尺ㄖ 乃ㄖㄒ](https://github.com/DazRepo/Uro-bot) Telah Aktif.**\n\n"
         
-        f"┌ **✵ Boss :** [{user.first_name}](tg://user?id={user.id}) \n"
-        f"├ **✵ Modules :** `{len(modules)} Modules` \n"
-        f"├ **✵ BotVersion :** `{BOT_VER}` \n"
-        f"├ **✵ PythonVersion :** `{python_version()}` \n"
-        f"├ **✵ TelethonVersion :** `{version.__version__}` \n"
-        f"├ **{emoji}Pytgcalls Version :** `{pytgcalls.__version__}` \n"
-        f"└ **✵ BotUptime :** `{uptime}` \n\n"
+        f" **✵ Boss :** [{user.first_name}](tg://user?id={user.id}) \n"
+        f" **✵ Modules :** `{len(modules)} Modules` \n"
+        f" **✵ BotVersion :** `{BOT_VER}` \n"
+        f" **✵ PythonVersion :** `{python_version()}` \n"
+        f" **✵ TelethonVersion :** `{version.__version__}` \n"
+        f" **✵Pytgcalls Version :** `{pytgcalls.__version__}` \n"
+        f" **✵ BotUptime :** `{uptime}` \n\n"
         f"    **[𝗦𝘂𝗽𝗽𝗼𝗿𝘁](https://t.me/{GROUP})** | **[𝗖𝗵𝗮𝗻𝗻𝗲𝗹](https://t.me/{CHANNEL})** | **[𝗢𝘄𝗻𝗲𝗿](tg://user?id={user.id})**"
     )
     if ALIVE_LOGO:
