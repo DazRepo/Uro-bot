@@ -1,10 +1,7 @@
-# Man - UserBot
-# Copyright (c) 2022 Man-Userbot
-# Credits: @mrismanaziz || https://github.com/mrismanaziz
+# Credits: @mrismanaziz
 # Thanks To @tofik_dn || https://github.com/tofikdn
-#
-# This file is a part of < https://github.com/mrismanaziz/Man-Userbot/ >
-# t.me/SharingUserbot & t.me/Lunatic0de
+# FROM PocongUserbot < https://github.com/poocong/PocongUserbot >
+# ReCode @pocongonlen
 
 from pytgcalls import StreamType
 from pytgcalls.exceptions import AlreadyJoinedError
@@ -18,6 +15,7 @@ from pytgcalls.types.input_stream.quality import (
 )
 from telethon.tl import types
 from telethon.utils import get_display_name
+from youtubesearchpython import VideosSearch
 
 from userbot import CMD_HANDLER as cmd
 from userbot import CMD_HELP, PLAY_PIC, QUEUE_PIC, call_py
@@ -40,12 +38,13 @@ def vcmention(user):
     return f"[{full_name}](tg://user?id={user.id})"
 
 
+
 @poci_cmd(pattern="play(?:\s|$)([\s\S]*)")
 async def vc_play(event):
     title = event.pattern_match.group(1)
     replied = await event.get_reply_message()
+    sender = await event.get_sender()
     chat = await event.get_chat()
-    titlegc = chat.title
     chat_id = event.chat_id
     from_user = vcmention(event.sender)
     if (
@@ -71,11 +70,12 @@ async def vc_play(event):
             url = search[1]
             duration = search[2]
             thumbnail = search[3]
-            videoid = search[4]
+            userid = sender.id
             titlegc = chat.title
             ctitle = await CHAT_TITLE(titlegc)
-            thumb = await gen_thumb(thumbnail, title, videoid, ctitle)
-            hm, ytlink = await ytdl(url)
+            thumb = await gen_thumb(thumbnail, title, userid, ctitle)
+            format = "best[height<=?720][width<=?1280]"
+            hm, ytlink = await ytdl(format, url)
             if hm == 0:
                 await botman.edit(f"`{ytlink}`")
             elif chat_id in QUEUE:
@@ -157,6 +157,8 @@ async def vc_play(event):
 async def vc_vplay(event):
     title = event.pattern_match.group(1)
     replied = await event.get_reply_message()
+    sender = await event.get_sender()
+    userid = sender.id
     chat = await event.get_chat()
     titlegc = chat.title
     chat_id = event.chat_id
@@ -186,10 +188,10 @@ async def vc_vplay(event):
             url = search[1]
             duration = search[2]
             thumbnail = search[3]
-            videoid = search[4]
             ctitle = await CHAT_TITLE(titlegc)
-            thumb = await gen_thumb(thumbnail, title, videoid, ctitle)
-            hm, ytlink = await ytdl(url)
+            thumb = await gen_thumb(thumbnail, title, userid, ctitle)
+            format = "best[height<=?720][width<=?1280]"
+            hm, ytlink = await ytdl(format, url)
             if hm == 0:
                 await xnxx.edit(f"`{ytlink}`")
             elif chat_id in QUEUE:
@@ -269,7 +271,7 @@ async def vc_vplay(event):
             except AlreadyJoinedError:
                 await call_py.leave_group_call(chat_id)
                 clear_queue(chat_id)
-                await xnxx.edit(
+                await botman.edit(
                     "**ERROR:** `Karena akun sedang berada di obrolan suara`\n\n• Silahkan Coba Play lagi"
                 )
             except Exception as ep:
@@ -289,10 +291,10 @@ async def vc_vplay(event):
             url = search[1]
             duration = search[2]
             thumbnail = search[3]
-            videoid = search[4]
             ctitle = await CHAT_TITLE(titlegc)
-            thumb = await gen_thumb(thumbnail, title, videoid, ctitle)
-            hm, ytlink = await ytdl(url)
+            thumb = await gen_thumb(thumbnail, title, userid, ctitle)
+            format = "best[height<=?720][width<=?1280]"
+            hm, ytlink = await ytdl(format, url)
             if hm == 0:
                 await xnxx.edit(f"`{ytlink}`")
             elif chat_id in QUEUE:
@@ -322,7 +324,7 @@ async def vc_vplay(event):
                 except AlreadyJoinedError:
                     await call_py.leave_group_call(chat_id)
                     clear_queue(chat_id)
-                    await xnxx.edit(
+                    await botman.edit(
                         "**ERROR:** `Karena akun sedang berada di obrolan suara`\n\n• Silahkan Coba Play lagi"
                     )
                 except Exception as ep:
@@ -402,13 +404,13 @@ async def vc_resume(event):
 @poci_cmd(pattern=r"volume(?: |$)(.*)")
 async def vc_volume(event):
     query = event.pattern_match.group(1)
-    me = await event.client.get_me()
+    await event.client.get_me()
     chat = await event.get_chat()
     admin = chat.admin_rights
     creator = chat.creator
     chat_id = event.chat_id
     if not admin and not creator:
-        return await edit_delete(event, f"**Maaf {me.first_name} Bukan Admin 👮**", 30)
+        return await edit_delete(event, f"**Maaf {owner} Bukan Admin 👮**", 30)
 
     if chat_id in QUEUE:
         try:
