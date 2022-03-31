@@ -108,7 +108,6 @@ async def change_title(e):
 
         
 @poci_cmd(pattern="joinvc(?: |$)(.*)")
-@register(pattern=r"^\.joinvcs(?: |$)(.*)", sudo=True)
 async def _(event):
     Man = await edit_or_reply(event, "`Processing...`")
     if len(event.text.split()) > 1:
@@ -146,7 +145,6 @@ async def _(event):
 
 
 @poci_cmd(pattern="leavevc(?: |$)(.*)")
-@register(pattern=r"^\.leavevcs(?: |$)(.*)", sudo=True)
 async def vc_end(event):
     Man = await edit_or_reply(event, "`Processing...`")
     if len(event.text.split()) > 1:
