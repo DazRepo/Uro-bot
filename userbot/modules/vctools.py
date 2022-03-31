@@ -1,3 +1,4 @@
+
 # Copyright (C) 2021 TeamUltroid
 #
 # This file is a part of < https://github.com/TeamUltroid/Ultroid/ >
@@ -5,8 +6,8 @@
 # <https://www.github.com/TeamUltroid/Ultroid/blob/main/LICENSE/>.
 #
 # Ported by @mrismanaziz
-# FROM Man-Userbot <https://github.com/mrismanaziz/Man-Userbot>
-# t.me/SharingUserbot & t.me/Lunatic0de
+# FROM Man-Userbot
+# Recode by @pocongonlen
 #
 # Kalo mau ngecopas, jangan hapus credit ya goblok
 
@@ -22,8 +23,7 @@ from telethon.tl.functions.phone import InviteToGroupCallRequest as invitetovc
 
 from userbot import CMD_HANDLER as cmd
 from userbot import CMD_HELP, call_py
-from userbot.events import register
-from userbot.utils import edit_delete, edit_or_reply, man_cmd
+from userbot.utils import edit_delete, edit_or_reply, poci_cmd
 
 
 async def get_call(event):
@@ -38,15 +38,13 @@ def user_list(l, n):
 
 
 @poci_cmd(pattern="startvc$")
-@register(pattern=r"^\.startvcs$", sudo=True)
 async def start_voice(c):
-    me = await c.client.get_me()
     chat = await c.get_chat()
     admin = chat.admin_rights
     creator = chat.creator
 
     if not admin and not creator:
-        await edit_delete(c, f"**Maaf {me.first_name} Bukan Admin 👮**")
+        await edit_delete(c, f"**Maaf {owner} Bukan Admin 👮**")
         return
     try:
         await c.client(startvc(c.chat_id))
@@ -56,15 +54,13 @@ async def start_voice(c):
 
 
 @poci_cmd(pattern="stopvc$")
-@register(pattern=r"^\.stopvcs$", sudo=True)
 async def stop_voice(c):
-    me = await c.client.get_me()
     chat = await c.get_chat()
     admin = chat.admin_rights
     creator = chat.creator
 
     if not admin and not creator:
-        await edit_delete(c, f"**Maaf {me.first_name} Bukan Admin 👮**")
+        await edit_delete(c, f"**Maaf {owner} Bukan Admin 👮**")
         return
     try:
         await c.client(stopvc(await get_call(c)))
@@ -92,10 +88,8 @@ async def _(c):
 
 
 @poci_cmd(pattern="vctitle(?: |$)(.*)")
-@register(pattern=r"^\.cvctitle$", sudo=True)
 async def change_title(e):
     title = e.pattern_match.group(1)
-    me = await e.client.get_me()
     chat = await e.get_chat()
     admin = chat.admin_rights
     creator = chat.creator
@@ -104,7 +98,7 @@ async def change_title(e):
         return await edit_delete(e, "**Silahkan Masukan Title Obrolan Suara Grup**")
 
     if not admin and not creator:
-        await edit_delete(e, f"**Maaf {me.first_name} Bukan Admin 👮**")
+        await edit_delete(e, f"**Maaf {owner} Bukan Admin 👮**")
         return
     try:
         await e.client(settitle(call=await get_call(e), title=title.strip()))
@@ -112,7 +106,7 @@ async def change_title(e):
     except Exception as ex:
         await edit_delete(e, f"**ERROR:** `{ex}`")
 
-
+        
 @poci_cmd(pattern="joinvc(?: |$)(.*)")
 @register(pattern=r"^\.joinvcs(?: |$)(.*)", sudo=True)
 async def _(event):
@@ -125,7 +119,7 @@ async def _(event):
             return await Man.edit(f"**ERROR:** `{e}`")
     else:
         chat_id = event.chat_id
-    file = "./userbot/resources/audio-poci.mp3"
+    file = "./userbot/resources/poci-man.mp3"
     if chat_id:
         try:
             await call_py.join_group_call(
@@ -171,9 +165,9 @@ async def vc_end(event):
                 f"❏ **Berhasil Turun dari Obrolan Suara**\n└ **Chat ID:** `{chat_id}`",
             )
         except Exception as e:
-            await Man.edit(f"**INFO:** `{e}`")
-
-
+            await Man.edit(f"**INFO:** `{e}`")    
+        
+        
 CMD_HELP.update(
     {
         "vctools": f"**Plugin : **`vctools`\
