@@ -118,7 +118,7 @@ async def _(event):
             return await Man.edit(f"**ERROR:** `{e}`")
     else:
         chat_id = event.chat_id
-    file = "./userbot/resources/poci-man.mp3"
+    file = "./userbot/resources/audio-poci.mp3"
     if chat_id:
         try:
             await call_py.join_group_call(
