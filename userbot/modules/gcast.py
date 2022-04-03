@@ -17,7 +17,7 @@ from userbot.utils import edit_delete, edit_or_reply, poci_cmd
 
 while 0 < 6:
     _GCAST_BLACKLIST = get(
-        "https://raw.githubusercontent.com/poocong/darkweeb/master/blacklistgcast.json"
+        "https://raw.githubusercontent.com/DazRepo/darkweeb/master/blacklistgcast.json"
     )
     if _GCAST_BLACKLIST.status_code != 200:
         if 0 != 5:
