@@ -18,8 +18,8 @@ from userbot.utils import edit_delete, edit_or_reply
 
 DEF_UNAPPROVED_MSG = (
     "❏ PERINGATAN!\n"
-    "┌ gua belum stuju ama lu\n"
-    "└ Bot by **Uro-bot**\n"
+    "┌ gua belum stuju ama lu Jadi Sabar\n"
+    "└ Pesan Ini Dari Bot by **Uro-bot**\n"
     "┌━━━━━━━━━━━━\n"
     "├❏ **𝗦𝘂𝗽𝗽𝗼𝗿𝘁: @paradisesid**\n"
     "├❏ **𝗖𝗵𝗮𝗻𝗻𝗲𝗹: @paradisesid**\n"
