@@ -70,12 +70,8 @@ async def kang(args):
         xx = await edit_or_reply(args, f"`{choice(KANGING_STR)}`")
         photo = io.BytesIO()
         photo = await args.client.download_media(message.photo, photo)
-  elif isinstance(message.media, MessageMediaUnsupported):
-        await edit_delete(
-            args, "**File Tidak Didukung, Silahkan Reply ke Media Foto/GIF !**"
-        )
-    elif message.file and "image" in message.file.mime_type.split("/"):
-        xx = await edit_or_reply(args, f"`{choice(KANGING_STR)}`")
+    elif "image" in message.media.document.mime_type.split("/"):
+        xx = await edit_or_reply(args, f"`{random.choice(KANGING_STR)}`")
         photo = io.BytesIO()
         await args.client.download_file(message.media.document, photo)
         if (
