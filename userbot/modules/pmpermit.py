@@ -17,17 +17,19 @@ from userbot.events import poci_cmd, register
 from userbot.utils import edit_delete, edit_or_reply
 
 DEF_UNAPPROVED_MSG = (
-    "❏ PERINGATAN!\n"
-    "┌ gua belum stuju ama lu Jadi Sabar\n"
-    "└ Pesan Ini Dari Bot by **Uro-bot**\n"
-    "┌━━━━━━━━━━━━\n"
-    "├❏ **𝗦𝘂𝗽𝗽𝗼𝗿𝘁: @paradisesid**\n"
-    "├❏ **𝗖𝗵𝗮𝗻𝗻𝗲𝗹: @paradisesid**\n"
-    "└━━━━━━━━━━━━\n"
+    "╔════════════════════╗\n"
+    "     ⛑ 𝗔𝗧𝗧𝗘𝗡𝗧𝗜𝗢𝗡 𝗣𝗟𝗘𝗔𝗦𝗘 ⛑\n"
+    "╚════════════════════╝\n"
+    "• Saya belum menyetujui anda untuk PM.\n"
+    "• Tunggu sampai saya menyetujui PM anda.\n"
+    "• Jangan Spam Chat atau anda akan otomatis diblokir.\n"
+    "╔════════════════════╗\n"
+    "    𝗣𝗲𝘀𝗮𝗻 𝗢𝘁𝗼𝗺𝗮𝘁𝗶𝘀 𝗕𝘆 -𝗨𝘀𝗲𝗿𝗕𝗼𝘁\n"
+    "╚════════════════════╝\n"
 )
 
 
-@register(incoming=True, disable_edited=True, disable_errors=True)
+@bot.on(events.NewMessage(outgoing=True))
 async def permitpm(event):
     """ Prohibits people from PMing you without approval. \
         Will block retarded nibbas automatically. """
@@ -110,7 +112,7 @@ async def permitpm(event):
                     )
 
 
-@register(disable_edited=True, outgoing=True, disable_errors=True)
+@bot.on(poci_cmd(outgoing=True, pattern=r"notifoff$"))
 async def auto_accept(event):
     """Will approve automatically if you texted them first."""
     if not PM_AUTO_BAN:
