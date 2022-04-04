@@ -47,7 +47,7 @@ async def insta(event):
             await event.client.send_file(
                 event.chat_id,
                 response.message.media,
-                caption=f"**Creator @Pocongonlen**",
+                caption=f"**Creator @xdazher**",
             )
             await event.client.send_read_acknowledge(conv.chat_id)
             await bot(functions.messages.DeleteHistoryRequest(peer=chat, max_id=0))
@@ -67,7 +67,7 @@ async def _(event):
             "**Berikan Link Tiktok Pesan atau Reply Link Tiktok Untuk di Download**",
         )
     xx = await edit_or_reply(event, "`Video Sedang Diproses...`")
-    chat = "@thisvidbot"
+    chat = "@allsaverbot"
     async with event.client.conversation(chat) as conv:
         try:
             msg_start = await conv.send_message("/start")
