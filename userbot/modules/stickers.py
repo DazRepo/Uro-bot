@@ -8,9 +8,9 @@
 import asyncio
 import io
 import math
-import random
 import urllib.request
 from os import remove
+from secrets import choice
 
 import requests
 from bs4 import BeautifulSoup as bs
@@ -26,31 +26,30 @@ from telethon.tl.types import (
     DocumentAttributeSticker,
     InputStickerSetID,
     MessageMediaPhoto,
+    MessageMediaUnsupported,
 )
 from telethon.utils import get_input_document
 
-from userbot import BOT_USERNAME
 from userbot import CMD_HANDLER as cmd
 from userbot import CMD_HELP
 from userbot import S_PACK_NAME as custompack
 from userbot import tgbot, user
 from userbot.modules.sql_helper.globals import addgvar, gvarstatus
 from userbot.utils import edit_delete, edit_or_reply, poci_cmd
+from userbot.utils.misc import animator
 
 KANGING_STR = [
     "**Colong Sticker dulu yee kan**",
     "**Izin nyolong stiker nya bg mwehehe**",
-    "**Pim Pim Pom! Ni stiker punya aing sekarang**",
     "**Waw Stickernya Bagus Nih...Colong Dulu Yekan..**",
     "**Ehh, keren nih... gua colong ahh...**",
-    "**Husstt diem ni stiker sekarang punya aing**",
 ]
 
 OWNER = user.first_name
 OWNER_ID = user.id
 
 
-@poci_cmd(pattern="(?:curi|kang)\s?(.)?")
+@poci_cmd(pattern="(?:tikel|kang)\s?(.)?")
 async def kang(args):
     user = await args.client.get_me()
     if not user.username:
@@ -58,20 +57,25 @@ async def kang(args):
     message = await args.get_reply_message()
     photo = None
     emojibypass = False
+    is_video = False
     is_anim = False
     emoji = None
 
     if not message or not message.media:
         return await edit_delete(
-            args, "**Silahkan Reply Ke Pesan Media Untuk Mencuri Sticker itu!**"
+            args, "**Silahkan Reply Ke Pesan Media !!**"
         )
 
     if isinstance(message.media, MessageMediaPhoto):
-        xx = await edit_or_reply(args, f"`{random.choice(KANGING_STR)}`")
+        xx = await edit_or_reply(args, f"`{choice(KANGING_STR)}`")
         photo = io.BytesIO()
         photo = await args.client.download_media(message.photo, photo)
-    elif "image" in message.media.document.mime_type.split("/"):
-        xx = await edit_or_reply(args, f"`{random.choice(KANGING_STR)}`")
+  elif isinstance(message.media, MessageMediaUnsupported):
+        await edit_delete(
+            args, "**File Tidak Didukung, Silahkan Reply ke Media Foto/GIF !**"
+        )
+    elif message.file and "image" in message.file.mime_type.split("/"):
+        xx = await edit_or_reply(args, f"`{choice(KANGING_STR)}`")
         photo = io.BytesIO()
         await args.client.download_file(message.media.document, photo)
         if (
@@ -79,7 +83,7 @@ async def kang(args):
             in message.media.document.attributes
         ):
             emoji = message.media.document.attributes[1].alt
-            if emoji != "👾":
+            if emoji != "✨":
                 emojibypass = True
     elif "tgsticker" in message.media.document.mime_type:
         xx = await edit_or_reply(args, f"`{random.choice(KANGING_STR)}`")
@@ -92,6 +96,18 @@ async def kang(args):
 
         emojibypass = True
         is_anim = True
+        photo = 1
+    elif message.media.document.mime_type in ["video/mp4", "video/webm"]:
+        if message.media.document.mime_type == "video/webm":
+            xx = await edit_or_reply(args, f"`{choice(KANGING_STR)}`")
+            await args.client.download_media(message.media.document, "Video.webm")
+        else:
+            xx = await edit_or_reply(args, "`Downloading...`")
+            await animator(message, args, xx)
+            await xx.edit(f"`{choice(KANGING_STR)}`")
+        is_video = True
+        emoji = "✨"
+        emojibypass = True
         photo = 1
     else:
         return await xx.edit("**File Tidak Didukung, Silahkan Reply ke Media Foto !**")
@@ -109,13 +125,12 @@ async def kang(args):
             else:
                 emoji = splat[1]
 
-        u_id = user.id
-        f_name = user.first_name
-        packname = f"Sticker_u{u_id}_Ke{pack}"
-        custom_packnick = f"{custompack}" or f"{f_name} Sticker Pack"
-        packnick = f"{custom_packnick}"
-        cmd = "/newpack"
-        file = io.BytesIO()
+       packname = f"Sticker_u{user.id}_Ke{pack}"
+        if custompack is not None:
+            packnick = f"{custompack}"
+        else:
+            f_name = f"@{user.username}" if user.username else user.first_name
+            packnick = f"Sticker Pack {f_name}"
 
         if not is_anim:
             image = await resize_photo(photo)
