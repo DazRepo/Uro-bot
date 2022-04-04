@@ -29,7 +29,7 @@ DEF_UNAPPROVED_MSG = (
 )
 
 
-@bot.on(events.NewMessage(outgoing=True))
+@register(incoming=True, disable_edited=True, disable_errors=True)
 async def permitpm(event):
     """ Prohibits people from PMing you without approval. \
         Will block retarded nibbas automatically. """
