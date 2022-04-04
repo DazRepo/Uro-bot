@@ -166,7 +166,7 @@ UPSTREAM_REPO_URL = os.environ.get(
 )
 
 # Custom name sticker pack
-S_PACK_NAME = os.environ.get("S_PACK_NAME", "Tikell @paradisesid")
+S_PACK_NAME = os.environ.get("S_PACK_NAME", "Tikell @Urobot")
 
 # SQL Database URI
 DB_URI = os.environ.get("DATABASE_URL", None)
@@ -236,7 +236,7 @@ BITLY_TOKEN = os.environ.get("BITLY_TOKEN", None)
 TERM_ALIAS = os.environ.get("TERM_ALIAS", "PocongUserbot")
 
 # Bot version
-BOT_VER = os.environ.get("BOT_VER", "2.3.4")
+BOT_VER = os.environ.get("BOT_VER", "3.0.0")
 
 # Default .alive username
 ALIVE_USERNAME = os.environ.get("ALIVE_USERNAME", None)
