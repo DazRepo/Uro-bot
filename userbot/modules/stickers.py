@@ -121,13 +121,14 @@ async def kang(args):
             else:
                 emoji = splat[1]
 
-       packname = f"Sticker_u{user.id}_Ke{pack}"
-        if custompack is not None:
-            packnick = f"{custompack}"
-        else:
-            f_name = f"@{user.username}" if user.username else user.first_name
-            packnick = f"Sticker Pack {f_name}"
-
+        u_id = user.id
+        f_name = user.first_name
+        packname = f"Sticker_u{u_id}_Ke{pack}"
+        custom_packnick = f"{custompack}" or f"{f_name} Sticker Pack"
+        packnick = f"{custom_packnick}"
+        cmd = "/newpack"
+        file = io.BytesIO()
+        
         if not is_anim:
             image = await resize_photo(photo)
             file.name = "sticker.png"
