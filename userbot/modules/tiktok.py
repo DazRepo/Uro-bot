@@ -83,10 +83,8 @@ async def _(event):
 
 CMD_HELP.update(
     {
-        "tiktok": f"**Plugin : **`tiktok`\
-        \n\n  •  **Syntax :** `{cmd}tiktok` <link>\
-        \n  •  **Function : **Download Video Tiktok Tanpa Watermark\
-    "
+        "tiktok": f"𝘾𝙤𝙢𝙢𝙖𝙣𝙙: `{cmd}tiktok <Link tiktok>`"
+        "\n• : Download Video Tiktok Tanpa Watermark"
     }
 )
 
