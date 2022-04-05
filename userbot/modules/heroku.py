@@ -133,7 +133,7 @@ async def set_var(var):
 """
 
 
-@poci_cmd(pattern="(dynousage|dyno)(?: |$)")
+@poci_cmd(pattern="usage(?: |$)")
 async def dyno_usage(dyno):
     if app is None:
         return await dyno.edit(
@@ -199,19 +199,6 @@ async def dyno_usage(dyno):
             f" **Sisa Dyno Heroku** `{day}` **Hari Lagi**"
         )
         return True
-
-
-@poci_cmd(pattern="usage(?: |$)")
-async def fake_dyno(event):
-    xx = await edit_or_reply(event, "`Processing...`")
-    await xx.edit(
-        "**Informasi Dyno Heroku**:\n\n"
-        f"❏ **Penggunaan Dyno** **{app.name}**:\n"
-        f"    •**0 hour(s) - "
-        f"0%**\n\n"
-        "❏ **Sisa Dyno bulan ini**:\n"
-        f"    •**1000 hour(s) - 100%**"
-    )
 
 
 @poci_cmd(pattern="logs")
