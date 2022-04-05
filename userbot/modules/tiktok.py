@@ -87,10 +87,57 @@ async def _(event):
         await event.delete()
 
 
+@poci_cmd(pattern="fb(?: |$)(.*)")
+async def _(event):
+    xxnx = event.pattern_match.group(1)
+    if xxnx:
+        d_link = xxnx
+    elif event.is_reply:
+        d_link = await event.get_reply_message()
+    else:
+        return await edit_delete(
+            event,
+            "**Berikan Link Facebook atau Reply Link Facebook Untuk di Download**",
+        )
+    xx = await edit_or_reply(event, "`Video Sedang Diproses...`")
+    chat = "@thisvidbot"
+    async with event.client.conversation(chat) as conv:
+        try:
+            msg_start = await conv.send_message("/start")
+            r = await conv.get_response()
+            msg = await conv.send_message(d_link)
+            details = await conv.get_response()
+            video = await conv.get_response()
+            text = await conv.get_response()
+            await event.client.send_read_acknowledge(conv.chat_id)
+        except YouBlockedUserError:
+            await event.client(UnblockRequest(chat))
+            msg_start = await conv.send_message("/start")
+            r = await conv.get_response()
+            msg = await conv.send_message(d_link)
+            details = await conv.get_response()
+            video = await conv.get_response()
+            text = await conv.get_response()
+            await event.client.send_read_acknowledge(conv.chat_id)
+        await event.client.send_file(event.chat_id, video)
+        await event.client.delete_messages(
+            conv.chat_id, [msg_start.id, r.id, msg.id, details.id, video.id, text.id]
+        )
+        await xx.delete()
+        
 CMD_HELP.update(
     {
         f"tiktok": "𝘾𝙤𝙢𝙢𝙖𝙣𝙙: `{cmd}tiktok <Link tiktok>`"
         "\n• : Download Video Tiktok Tanpa Watermark"
+    }
+)
+
+CMD_HELP.update(
+    {
+        "fb": f"**Plugin : **`Facebook`\
+        \n\n  •  **Syntax :** `{cmd}fb` <link>\
+        \n  •  **Function : **Download Video dari Facebook\
+    "
     }
 )
 
