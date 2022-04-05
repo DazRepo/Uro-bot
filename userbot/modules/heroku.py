@@ -189,12 +189,12 @@ async def dyno_usage(dyno):
 
         await xx.edit(
             "**Informasi Dyno Heroku**:\n\n"
-            f"❏ `Penggunaan Dyno`  **{app.name}**:\n"
-            f"     •  **{AppHours} hour(s), "
+            f"➠ `Penggunaan Dyno`  **{app.name}**:\n"
+            f"     ◕  **{AppHours} hour(s), "
             f"{AppMinutes} minute(s) - {AppPercentage}%**"
             "\n\n"
-            "❏ `Dyno yang tersisa bulan ini` :\n"
-            f"     • **{hours} hour(s), {minutes} minute(s) "
+            "➠ `Dyno yang tersisa bulan ini` :\n"
+            f"     ◕ **{hours} hour(s), {minutes} minute(s) "
             f"-  {percentage}%**\n\n"
             f" **Sisa Dyno Heroku** `{day}` **Hari Lagi**"
         )
