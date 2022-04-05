@@ -8,6 +8,7 @@ from telethon.tl.functions.contacts import UnblockRequest
 from telethon import events
 from userbot import CMD_HANDLER as cmd
 from userbot import CMD_HELP
+from userbot import bot, CMD_HELP, CMD_HANDLER as 
 from userbot.utils import edit_delete, edit_or_reply, poci_cmd
 
 
@@ -63,7 +64,7 @@ async def _(event):
         await edit_delete(event, "`Mohon Maaf, Saya Membutuhkan Link Video Tiktok Untuk Mendownload Nya`")
     else:
         xx = await edit_or_reply(event, "```Video Sedang Diproses.....```")
-    chat = "@ttsavebot"
+    chat = "@kvakerbot"
     async with bot.conversation(chat) as conv:
         try:
             msg_start = await conv.send_message("/start")
