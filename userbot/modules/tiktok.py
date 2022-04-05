@@ -8,7 +8,6 @@ from telethon.tl.functions.contacts import UnblockRequest
 from telethon import events
 from userbot import CMD_HANDLER as cmd
 from userbot import CMD_HELP
-from userbot import bot, CMD_HELP, CMD_HANDLER as 
 from userbot.utils import edit_delete, edit_or_reply, poci_cmd
 
 
