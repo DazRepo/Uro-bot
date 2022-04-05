@@ -67,31 +67,30 @@ async def _(event):
             "**Berikan Link Tiktok Pesan atau Reply Link Tiktok Untuk di Download**",
         )
     xx = await edit_or_reply(event, "`Video Sedang Diproses...`")
-    chat = "@ttsavebot"
+    chat = "@thisvidbot"
     async with event.client.conversation(chat) as conv:
         try:
-             response = conv.wait_event(
-                events.NewMessage(incoming=True, from_users=523131145)
-            )
-            await event.client.send_message(chat, reply_message)
-            response = await response
-        except YouBlockedUserError:
-            await event.edit("`Mohon Buka Blokir` @ttsavebot `Lalu Coba Lagi`")
-            return
-        if response.text.startswith("Forward"):
-            await event.edit(
-                "Uhmm Sepertinya Private."
-            )
-        else:
-            await event.delete()
-            await event.client.send_file(
-                event.chat_id,
-                response.message.media,
-                caption=f"**Creator @Pocongonlen**",
-            )
+            msg_start = await conv.send_message("/start")
+            r = await conv.get_response()
+            msg = await conv.send_message(d_link)
+            details = await conv.get_response()
+            video = await conv.get_response()
+            text = await conv.get_response()
             await event.client.send_read_acknowledge(conv.chat_id)
-            await bot(functions.messages.DeleteHistoryRequest(peer=chat, max_id=0))
-            await event.delete()
+        except YouBlockedUserError:
+            await event.client(UnblockRequest(chat))
+            msg_start = await conv.send_message("/start")
+            r = await conv.get_response()
+            msg = await conv.send_message(d_link)
+            details = await conv.get_response()
+            video = await conv.get_response()
+            text = await conv.get_response()
+            await event.client.send_read_acknowledge(conv.chat_id)
+        await event.client.send_file(event.chat_id, video)
+        await event.client.delete_messages(
+            conv.chat_id, [msg_start.id, r.id, msg.id, details.id, video.id, text.id]
+        )
+        await xx.delete()
             
 CMD_HELP.update(
     {
