@@ -68,11 +68,6 @@ async def _(event):
         )
     xx = await edit_or_reply(event, "`Video Sedang Diproses...`")
     chat = "@ttsavebot"
-     reply_message.sender
-    if reply_message.sender.bot:
-        await event.edit("`Memproses....`")
-        return
-    await event.edit("`Memproses.....`")
     async with event.client.conversation(chat) as conv:
         try:
              response = conv.wait_event(
