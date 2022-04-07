@@ -54,7 +54,7 @@ async def insta(event):
             await event.delete()
 
 
-@poci_cmd(pattern="mm(?: |$)(.*)")
+@poci_cmd(pattern="tt(?: |$)(.*)")
 async def _(event):
     if event.fwd_from:
         return
@@ -127,7 +127,7 @@ async def _(event):
         
 CMD_HELP.update(
     {
-        f"mm": "𝘾𝙤𝙢𝙢𝙖𝙣𝙙: `{cmd}mm <Link tiktok>`"
+        f"tt": "𝘾𝙤𝙢𝙢𝙖𝙣𝙙: `{cmd}tt <Link tiktok>`"
         "\n• : Download Video Tiktok Tanpa Watermark"
     }
 )
