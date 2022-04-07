@@ -62,8 +62,8 @@ async def _(ping):
     duration = (end - start).microseconds / 1000
     user = await bot.get_me()
     await xx.edit(
-        f"**•Pong**  `%sms`\n"
-        f"**•Uptime -** `{uptime}` \n" % (duration)
+        f"**• Pong**  `%sms`\n"
+        f"**• Uptime -** `{uptime}` \n" % (duration)
     )
 
 @poci_cmd(pattern="tping$")
@@ -104,7 +104,7 @@ async def _(pong):
     duration = (end - start).microseconds / 1000
     user = await pong.client.get_me()
     await ram.edit(
-        f"**💥𝗞𝗢𝗡𝗧𝗢𝗟-𝗠𝗘𝗟𝗘𝗗𝗔𝗞💥**\n"
+        f"**◕ 𝙐𝙍𝙊-𝘽𝙊𝙏 ◕**\n"
         f"** ➠  Sɪɢɴᴀʟ   :** "
         f"`%sms` \n"
         f"** ➠  Uᴘᴛɪᴍᴇ  :** "
