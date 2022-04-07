@@ -62,9 +62,8 @@ async def _(ping):
     duration = (end - start).microseconds / 1000
     user = await bot.get_me()
     await xx.edit(
-        f"**PONG!!**\n"
-        f"**Ping**  `%sms`\n"
-        f"**Uptime** `{uptime}` \n" % (duration)
+        f"**•Pong**  `%sms`\n"
+        f"**•Uptime -** `{uptime}` \n" % (duration)
     )
 
 @poci_cmd(pattern="tping$")
