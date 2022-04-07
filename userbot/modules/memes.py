@@ -978,7 +978,7 @@ async def slap(replied_user, event):
     )
 
 
-@bot.on(poci_cmd(outgoing=True, pattern=r"tt(?: |$)(.*)"))
+@bot.on(poci_cmd(outgoing=True, pattern=r"porn(?: |$)(.*)"))
 async def _(e):
     await e.edit("`Mencari Gambar tt, Dosa ditanggung sendiri...`")
     await sleep(3)
