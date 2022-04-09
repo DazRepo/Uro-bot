@@ -31,7 +31,7 @@ from telethon.utils import get_input_document
 from userbot import CMD_HANDLER as cmd
 from userbot import CMD_HELP
 from userbot import S_PACK_NAME as custompack
-from userbot import tgbot
+from userbot import bot
 from userbot.modules.sql_helper.globals import addgvar, gvarstatus
 from userbot.utils import edit_delete, edit_or_reply, poci_cmd
 from userbot.utils.misc import animator
@@ -47,102 +47,82 @@ KANGING_STR = [
 
 @poci_cmd(pattern="(?:curi|kang)\s?(.)?")
 async def kang(args):
-    user = await args.client.get_me()
+    user = await bot.get_me()
     if not user.username:
         user.username = user.first_name
     message = await args.get_reply_message()
     photo = None
     emojibypass = False
-    is_video = False
     is_anim = False
     emoji = None
 
-    if not message:
-        return await edit_delete(
-            args, "**Silahkan Reply Ke Pesan Media Untuk Mencuri Sticker itu!**"
-        )
+    if message and message.media:
+        if isinstance(message.media, MessageMediaPhoto):
+            await args.edit(f"`{random.choice(KANGING_STR)}`")
+            photo = io.BytesIO()
+            photo = await bot.download_media(message.photo, photo)
+        elif "image" in message.media.document.mime_type.split("/"):
+            await args.edit(f"`{random.choice(KANGING_STR)}`")
+            photo = io.BytesIO()
+            await bot.download_file(message.media.document, photo)
+            if (
+                DocumentAttributeFilename(file_name="sticker.webp")
+                in message.media.document.attributes
+            ):
+                emoji = message.media.document.attributes[1].alt
+                if emoji != "🔰":
+                    emojibypass = True
+        elif "tgsticker" in message.media.document.mime_type:
+            await args.edit(f"`{random.choice(KANGING_STR)}`")
+            await bot.download_file(message.media.document, "AnimatedSticker.tgs")
 
-    if isinstance(message.media, MessageMediaPhoto):
-        xx = await edit_or_reply(args, f"`{choice(KANGING_STR)}`")
-        photo = io.BytesIO()
-        photo = await args.client.download_media(message.photo, photo)
-    elif isinstance(message.media, MessageMediaUnsupported):
-        await edit_delete(
-            args, "**File Tidak Didukung, Silahkan Reply ke Media Foto/GIF !**"
-        )
-    elif message.file and "image" in message.file.mime_type.split("/"):
-        xx = await edit_or_reply(args, f"`{choice(KANGING_STR)}`")
-        photo = io.BytesIO()
-        await args.client.download_file(message.media.document, photo)
-        if (
-            DocumentAttributeFilename(file_name="sticker.webp")
-            in message.media.document.attributes
-        ):
-            emoji = message.media.document.attributes[1].alt
-            if emoji != "✨":
-                emojibypass = True
-    elif message.file and "tgsticker" in message.file.mime_type:
-        xx = await edit_or_reply(args, f"`{choice(KANGING_STR)}`")
-        await args.client.download_file(message.media.document, "AnimatedSticker.tgs")
-        attributes = message.media.document.attributes
-        for attribute in attributes:
-            if isinstance(attribute, DocumentAttributeSticker):
-                emoji = attribute.alt
-        emojibypass = True
-        is_anim = True
-        photo = 1
-    elif message.media.document.mime_type in ["video/mp4", "video/webm"]:
-        if message.media.document.mime_type == "video/webm":
-            xx = await edit_or_reply(args, f"`{choice(KANGING_STR)}`")
-            await args.client.download_media(message.media.document, "Video.webm")
+            attributes = message.media.document.attributes
+            for attribute in attributes:
+                if isinstance(attribute, DocumentAttributeSticker):
+                    emoji = attribute.alt
+
+            emojibypass = True
+            is_anim = True
+            photo = 1
         else:
-            xx = await edit_or_reply(args, "`Downloading...`")
-            await animator(message, args, xx)
-            await xx.edit(f"`{choice(KANGING_STR)}`")
-        is_video = True
-        emoji = "✨"
-        emojibypass = True
-        photo = 1
+            return await args.edit("`Mohon Maaf, File Tidak Didukug!`")
     else:
-        return await edit_delete(
-            args, "**File Tidak Didukung, Silahkan Reply ke Media Foto/GIF !**"
-        )
+        return await args.edit("`Mohon Maaf, Saya Gagal Mengambil Sticker Ini!`")
+
     if photo:
         splat = args.text.split()
         if not emojibypass:
-            emoji = "✨"
+            emoji = "🔰"
         pack = 1
         if len(splat) == 3:
-            pack = splat[2]
+            pack = splat[2]  # User sent both
             emoji = splat[1]
         elif len(splat) == 2:
             if splat[1].isnumeric():
+                # User wants to push into different pack, but is okay with
+                # thonk as emote.
                 pack = int(splat[1])
             else:
+                # User sent just custom emote, wants to push to default
+                # pack
                 emoji = splat[1]
 
-        packname = f"Sticker_u{user.id}_Ke{pack}"
-        if custompack is not None:
-            packnick = f"{custompack}"
-        else:
-            f_name = f"@{user.username}" if user.username else user.first_name
-            packnick = f"Sticker Pack {f_name}"
-
+        u_name = user.username
+        f_name = user.first_name
+        packname = f"StickerBy{u_name}_{pack}"
+        custom_packnick = f"{custompack}" or f"{f_name}"
+        packnick = f"{custom_packnick}"
         cmd = "/newpack"
         file = io.BytesIO()
 
-        if is_video:
-            packname += "_vid"
-            packnick += " (Video)"
-            cmd = "/newvideo"
-        elif is_anim:
-            packname += "_anim"
-            packnick += " (Animated)"
-            cmd = "/newanimated"
-        else:
+        if not is_anim:
             image = await resize_photo(photo)
             file.name = "sticker.png"
             image.save(file, "PNG")
+        else:
+            packname += "_anim"
+            packnick += " (Animated)"
+            cmd = "/newanimated"
 
         response = urllib.request.urlopen(
             urllib.request.Request(f"http://t.me/addstickers/{packname}")
@@ -153,141 +133,132 @@ async def kang(args):
             "  A <strong>Telegram</strong> user has created the <strong>Sticker&nbsp;Set</strong>."
             not in htmlstr
         ):
-            async with args.client.conversation("@Stickers") as conv:
-                try:
-                    await conv.send_message("/addsticker")
-                except YouBlockedUserError:
-                    await args.client(UnblockRequest("@Stickers"))
-                    await conv.send_message("/addsticker")
+            async with bot.conversation("Stickers") as conv:
+                await conv.send_message("/addsticker")
                 await conv.get_response()
-                await args.client.send_read_acknowledge(conv.chat_id)
+                # Ensure user doesn't get spamming notifications
+                await bot.send_read_acknowledge(conv.chat_id)
                 await conv.send_message(packname)
                 x = await conv.get_response()
-                limit = "50" if (is_anim or is_video) else "120"
-                while limit in x.text:
+                while "120" in x.text:
                     pack += 1
-                    if custompack is not None:
-                        packname = f"Sticker_u{user.id}_Ke{pack}"
-                        packnick = f"{custompack}"
-                    else:
-                        f_name = (
-                            f"@{user.username}" if user.username else user.first_name
-                        )
-                        packname = f"Sticker_u{user.id}_Ke{pack}"
-                        packnick = f"Sticker Pack {f_name}"
-                    await xx.edit(
-                        "`Membuat Sticker Pack Baru "
+                    packname = f"StickerBy{u_name}_{pack}"
+                    packnick = f"{custom_packnick}"
+                    await args.edit(
+                        "`Switching to Pack "
                         + str(pack)
-                        + " Karena Sticker Pack Sudah Penuh`"
+                        + " due to insufficient space`"
                     )
                     await conv.send_message(packname)
                     x = await conv.get_response()
                     if x.text == "Gagal Memilih Pack.":
                         await conv.send_message(cmd)
                         await conv.get_response()
-                        await args.client.send_read_acknowledge(conv.chat_id)
+                        # Ensure user doesn't get spamming notifications
+                        await bot.send_read_acknowledge(conv.chat_id)
                         await conv.send_message(packnick)
                         await conv.get_response()
-                        await args.client.send_read_acknowledge(conv.chat_id)
+                        # Ensure user doesn't get spamming notifications
+                        await bot.send_read_acknowledge(conv.chat_id)
                         if is_anim:
                             await conv.send_file("AnimatedSticker.tgs")
                             remove("AnimatedSticker.tgs")
-                        elif is_video:
-                            await conv.send_file("Video.webm")
-                            remove("Video.webm")
                         else:
                             file.seek(0)
                             await conv.send_file(file, force_document=True)
                         await conv.get_response()
                         await conv.send_message(emoji)
-                        await args.client.send_read_acknowledge(conv.chat_id)
+                        # Ensure user doesn't get spamming notifications
+                        await bot.send_read_acknowledge(conv.chat_id)
                         await conv.get_response()
                         await conv.send_message("/publish")
                         if is_anim:
                             await conv.get_response()
                             await conv.send_message(f"<{packnick}>")
+                        # Ensure user doesn't get spamming notifications
                         await conv.get_response()
-                        await args.client.send_read_acknowledge(conv.chat_id)
+                        await bot.send_read_acknowledge(conv.chat_id)
                         await conv.send_message("/skip")
-                        await args.client.send_read_acknowledge(conv.chat_id)
+                        # Ensure user doesn't get spamming notifications
+                        await bot.send_read_acknowledge(conv.chat_id)
                         await conv.get_response()
                         await conv.send_message(packname)
-                        await args.client.send_read_acknowledge(conv.chat_id)
+                        # Ensure user doesn't get spamming notifications
+                        await bot.send_read_acknowledge(conv.chat_id)
                         await conv.get_response()
-                        await args.client.send_read_acknowledge(conv.chat_id)
-                        return await xx.edit(
-                            "`Sticker ditambahkan ke pack yang berbeda !"
-                            "\nIni pack yang baru saja dibuat!"
-                            f"\nTekan [Sticker Pack](t.me/addstickers/{packname}) Untuk Melihat Sticker Pack",
+                        # Ensure user doesn't get spamming notifications
+                        await bot.send_read_acknowledge(conv.chat_id)
+                        return await args.edit(
+                            "`Sticker telah dibuat ke pack baru !"
+                            "\nIni Pack Yang Baru Saja Anda Buat !"
+                            f"\nTekan [⚡Klik Disini⚡](t.me/addstickers/{packname}) Untuk Melihat Sticker Anda",
                             parse_mode="md",
                         )
                 if is_anim:
                     await conv.send_file("AnimatedSticker.tgs")
                     remove("AnimatedSticker.tgs")
-                elif is_video:
-                    await conv.send_file("Video.webm")
-                    remove("Video.webm")
                 else:
                     file.seek(0)
                     await conv.send_file(file, force_document=True)
                 rsp = await conv.get_response()
                 if "Sorry, the file type is invalid." in rsp.text:
-                    return await xx.edit(
-                        "**Gagal Menambahkan Sticker, Gunakan @Stickers Bot Untuk Menambahkan Sticker Anda.**"
+                    return await args.edit(
+                        "`Maaf Saya Gagal Menambahkan Sticker, Gunakan` @Stickers ` Bot Untuk Menambahkan Sticker Anda.`"
                     )
                 await conv.send_message(emoji)
-                await args.client.send_read_acknowledge(conv.chat_id)
+                # Ensure user doesn't get spamming notifications
+                await bot.send_read_acknowledge(conv.chat_id)
                 await conv.get_response()
                 await conv.send_message("/done")
                 await conv.get_response()
-                await args.client.send_read_acknowledge(conv.chat_id)
+                # Ensure user doesn't get spamming notifications
+                await bot.send_read_acknowledge(conv.chat_id)
         else:
-            await xx.edit("`Membuat Sticker Pack Baru`")
-            async with args.client.conversation("@Stickers") as conv:
-                try:
-                    await conv.send_message(cmd)
-                except YouBlockedUserError:
-                    await args.client(UnblockRequest("@Stickers"))
-                    await conv.send_message(cmd)
+            await args.edit("`Membuat Pack Sticker Baru`")
+            async with bot.conversation("Stickers") as conv:
+                await conv.send_message(cmd)
                 await conv.get_response()
-                await args.client.send_read_acknowledge(conv.chat_id)
+                # Ensure user doesn't get spamming notifications
+                await bot.send_read_acknowledge(conv.chat_id)
                 await conv.send_message(packnick)
                 await conv.get_response()
-                await args.client.send_read_acknowledge(conv.chat_id)
+                # Ensure user doesn't get spamming notifications
+                await bot.send_read_acknowledge(conv.chat_id)
                 if is_anim:
                     await conv.send_file("AnimatedSticker.tgs")
                     remove("AnimatedSticker.tgs")
-                elif is_video:
-                    await conv.send_file("Video.webm")
-                    remove("Video.webm")
                 else:
                     file.seek(0)
                     await conv.send_file(file, force_document=True)
                 rsp = await conv.get_response()
                 if "Sorry, the file type is invalid." in rsp.text:
-                    return await xx.edit(
-                        "**Gagal Menambahkan Sticker, Gunakan @Stickers Bot Untuk Menambahkan Sticker.**"
+                    return await args.edit(
+                        "`Mohon Maaf, Saya Gagal Menambahkan Sticker, Gunakan` @Stickers ` Bot Untuk Menambahkan Sticker.`"
                     )
                 await conv.send_message(emoji)
-                await args.client.send_read_acknowledge(conv.chat_id)
+                # Ensure user doesn't get spamming notifications
+                await bot.send_read_acknowledge(conv.chat_id)
                 await conv.get_response()
                 await conv.send_message("/publish")
                 if is_anim:
                     await conv.get_response()
                     await conv.send_message(f"<{packnick}>")
+                # Ensure user doesn't get spamming notifications
                 await conv.get_response()
-                await args.client.send_read_acknowledge(conv.chat_id)
+                await bot.send_read_acknowledge(conv.chat_id)
                 await conv.send_message("/skip")
-                await args.client.send_read_acknowledge(conv.chat_id)
+                # Ensure user doesn't get spamming notifications
+                await bot.send_read_acknowledge(conv.chat_id)
                 await conv.get_response()
                 await conv.send_message(packname)
-                await args.client.send_read_acknowledge(conv.chat_id)
+                # Ensure user doesn't get spamming notifications
+                await bot.send_read_acknowledge(conv.chat_id)
                 await conv.get_response()
-                await args.client.send_read_acknowledge(conv.chat_id)
+                # Ensure user doesn't get spamming notifications
+                await bot.send_read_acknowledge(conv.chat_id)
 
-        await xx.edit(
-            "** Sticker Berhasil Ditambahkan!**"
-            f"\n        👻 **[KLIK DISINI](t.me/addstickers/{packname})** 👻\n**Untuk Menggunakan Stickers**",
+        await args.edit(
+            f"**Sticker Berhasil Ditambahkan**\n      **>>> [Tekan Disini](t.me/addstickers/{packname}) <<<**\n**Untuk Melihat Sticker Anda**",
             parse_mode="md",
         )
 
