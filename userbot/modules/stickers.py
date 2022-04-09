@@ -391,50 +391,6 @@ async def _(event):
         await xnxx.edit("**Berkas Tidak Didukung. Harap Balas ke stiker saja.**")
 
 
-@poci_cmd(pattern="stickerinfo$")
-async def get_pack_info(event):
-    if not event.is_reply:
-        return await edit_delete(event, "**Mohon Balas Ke Sticker**")
-
-    rep_msg = await event.get_reply_message()
-    if not rep_msg.document:
-        return await edit_delete(
-            event, "**Balas ke sticker untuk melihat detail pack**"
-        )
-
-    try:
-        stickerset_attr = rep_msg.document.attributes[1]
-        xx = await edit_or_reply(event, "`Processing...`")
-    except BaseException:
-        return await edit_delete(xx, "**Ini bukan sticker, Mohon balas ke sticker.**")
-
-    if not isinstance(stickerset_attr, DocumentAttributeSticker):
-        return await edit_delete(xx, "**Ini bukan sticker, Mohon balas ke sticker.**")
-
-    get_stickerset = await event.client(
-        GetStickerSetRequest(
-            InputStickerSetID(
-                id=stickerset_attr.stickerset.id,
-                access_hash=stickerset_attr.stickerset.access_hash,
-            )
-        )
-    )
-    pack_emojis = []
-    for document_sticker in get_stickerset.packs:
-        if document_sticker.emoticon not in pack_emojis:
-            pack_emojis.append(document_sticker.emoticon)
-
-    OUTPUT = (
-        f"➠ **Nama Sticker:** [{get_stickerset.set.title}](http://t.me/addstickers/{get_stickerset.set.short_name})\n"
-        f"➠ **Official:** `{get_stickerset.set.official}`\n"
-        f"➠ **Arsip:** `{get_stickerset.set.archived}`\n"
-        f"➠ **Sticker Dalam Pack:** `{len(get_stickerset.packs)}`\n"
-        f"➠ **Emoji Dalam Pack:** {' '.join(pack_emojis)}"
-    )
-
-    await xx.edit(OUTPUT)
-
-
 @poci_cmd(pattern="delsticker ?(.*)")
 async def _(event):
     if event.fwd_from:
