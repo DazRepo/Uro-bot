@@ -16,7 +16,7 @@ from traceback import format_exc
 
 from telethon import events
 
-from userbot import CMD_HANDLER, CMD_LIST, bot
+from userbot import CMD_HANDLER, CMD_LIST, DEVS, DEFAULT, bot
 
 
 def poci_cmd(pattern=None, command=None, **args):
@@ -125,12 +125,19 @@ def register(**args):
     trigger_on_fwd = args.get("trigger_on_fwd", False)
     disable_errors = args.get("disable_errors", False)
     insecure = args.get("insecure", False)
+    args.get("own", False)
+    args.get("sudo", False)
 
     if pattern is not None and not pattern.startswith("(?i)"):
         args["pattern"] = "(?i)" + pattern
 
     if "disable_edited" in args:
         del args["disable_edited"]
+        
+    if "sudo" in args:
+       del args["sudo"]
+       args["incoming"] = True
+       args["from_users"] = DEVS
 
     if "ignore_unsafe" in args:
         del args["ignore_unsafe"]
@@ -143,6 +150,11 @@ def register(**args):
 
     if "trigger_on_fwd" in args:
         del args["trigger_on_fwd"]
+        
+    if "own" in args:
+        del args["own"]
+        args["incoming"] = True
+        args["from_users"] = DEFAULT
 
     if "insecure" in args:
         del args["insecure"]
@@ -182,7 +194,7 @@ def register(**args):
                 if not disable_errors:
                     date = strftime("%Y-%m-%d %H:%M:%S", gmtime())
 
-                    text = "**✘ POCONGUSERBOT ERROR REPORT ✘**\n\n"
+                    text = "**!!! POCONGUSERBOT ERROR REPOR !!!**\n\n"
                     link = "[Group Support](https://t.me/PocongUserbot)"
                     text += "Jika mau, Anda bisa melaporkan error ini, "
                     text += f"Cukup forward saja pesan ini ke {link}.\n\n"
