@@ -24,6 +24,7 @@ from telethon.tl.types import (
     DocumentAttributeSticker,
     InputStickerSetID,
     MessageMediaPhoto,
+    MessageMediaUnsupported,
 )
 from telethon.utils import get_input_document
 
@@ -60,6 +61,10 @@ async def kang(args):
             await args.edit(f"`{random.choice(KANGING_STR)}`")
             photo = io.BytesIO()
             photo = await bot.download_media(message.photo, photo)
+        elif isinstance(message.media, MessageMediaUnsupported):
+        await edit_delete(
+            args, "**File Tidak Didukung, Silahkan Reply ke Media Foto/GIF !**"
+            )
         elif "image" in message.media.document.mime_type.split("/"):
             await args.edit(f"`{random.choice(KANGING_STR)}`")
             photo = io.BytesIO()
