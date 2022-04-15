@@ -19,7 +19,7 @@ from telethon import version
 
 from userbot import BOT_TOKEN
 from userbot import BOT_VER as ubotversion
-from userbot import BOTLOG_CHATID, LOGS, LOOP, bot
+from userbot import BOTLOG_CHATID, LOGS, bot
 from userbot.core.git import git
 from userbot.modules import ALL_MODULES
 from userbot.utils import autobot, autopilot
