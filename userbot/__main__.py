@@ -15,12 +15,19 @@ from importlib import import_module
 
 import requests
 from pytgcalls import idle
-from telethon.tl.functions.channels import InviteToChannelRequest, JoinChannelRequest
-from userbot import BOT_TOKEN, BOT_USERNAME, BOT_VER, BOTLOG_CHATID
-from userbot import CMD_HANDLER as cmd
-from userbot import LOGS, bot, branch, call_py
+from telethon.tl.functions.channel import InviteToChannelRequest as Addbot
+from userbot import (
+    BOTLOG_CHATID,
+    BOT_USERNAME,
+    BOT_TOKEN,
+    BOT_VER,
+    LOGS,
+    blacklist,
+    bot,
+    call_py,
+)
 from userbot.modules import ALL_MODULES
-from userbot.utils import autobot, checking
+from userbot.utils import autobot, autopilot
 
 try:
     bot.start()
@@ -40,6 +47,12 @@ except Exception as e:
 
 for module_name in ALL_MODULES:
     imported_module = import_module("userbot.modules." + module_name)
+
+if not BOTLOG_CHATID:
+    LOGS.info(
+        "BOTLOG_CHATID Vars tidak terisi, Memulai Membuat Grup Otomatis..."
+    )
+    bot.loop.run_until_complete(autopilot())
 
 LOGS.info(
     f"Jika {user.first_name} Membutuhkan Bantuan, Silahkan Tanyakan di ke https://t.me/xdazher"
