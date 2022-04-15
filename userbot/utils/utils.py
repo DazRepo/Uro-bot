@@ -28,7 +28,6 @@ from userbot import (
     HEROKU_APP_NAME,
     LOGS,
     bot,
-    tgbot,
 )
 
 heroku_api = "https://api.heroku.com"
