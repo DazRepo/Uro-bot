@@ -22,7 +22,6 @@ from userbot import (
     BOT_TOKEN,
     BOT_VER,
     LOGS,
-    blacklist,
     bot,
     call_py,
 )
