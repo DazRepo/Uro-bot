@@ -13,18 +13,14 @@
 import sys
 from importlib import import_module
 
-import requests
+from pytgcalls import __version__ as pytgcalls
 from pytgcalls import idle
-from telethon.tl.functions.channels import InviteToChannelRequest, JoinChannelRequest
-from userbot import (
-    BOTLOG_CHATID,
-    BOT_USERNAME,
-    BOT_TOKEN,
-    BOT_VER,
-    LOGS,
-    bot,
-    call_py,
-)
+from telethon import version
+
+from userbot import BOT_TOKEN
+from userbot import BOT_VER as ubotversion
+from userbot import BOTLOG_CHATID, LOGS, LOOP, bot
+from userbot.core.git import git
 from userbot.modules import ALL_MODULES
 from userbot.utils import autobot, autopilot
 
