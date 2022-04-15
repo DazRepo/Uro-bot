@@ -15,7 +15,7 @@ from importlib import import_module
 
 import requests
 from pytgcalls import idle
-from telethon.tl.functions.channel import InviteToChannelRequest as Addbot
+from telethon.tl.functions.channels import InviteToChannelRequest, JoinChannelRequest
 from userbot import (
     BOTLOG_CHATID,
     BOT_USERNAME,
