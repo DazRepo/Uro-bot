@@ -6,6 +6,7 @@
 # inline credit @keselekpermen69
 # From Man-Userbot @mrismanaziz
 # Recode by @Pocongonlen
+#
 """ Userbot initialization. """
 
 import logging
