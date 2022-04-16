@@ -8,6 +8,13 @@ import logging
 import sys
 from pathlib import Path
 from random import randint
+from telethon.tl.functions.channels import (
+    CreateChannelRequest,
+    EditAdminRequest,
+    EditPhotoRequest,
+    InviteToChannelRequest,
+    JoinChannelRequest,
+)
     
 import heroku3
 from telethon.tl.functions.channels import CreateChannelRequest
