@@ -8,20 +8,6 @@ import logging
 import sys
 from pathlib import Path
 from random import randint
-from telethon.tl.types import (
-    ChatAdminRights,
-    ChatPhotoEmpty,
-    InputChatUploadedPhoto,
-    InputMessagesFilterDocument,
-)
-
-from telethon.tl.types import (
-    ChannelParticipantsAdmins,
-    ChatAdminRights,
-    ChatBannedRights,
-    InputChatPhotoEmpty,
-    MessageMediaPhoto,
-)
     
 import heroku3
 from telethon.tl.functions.channels import CreateChannelRequest
@@ -146,16 +132,6 @@ async def autobot():
                 BOTLOG_CHATID,
                 "**Tunggu Sebentar, Sedang MeRestart Heroku untuk Menerapkan Perubahan.**",
             )
-            rights = ChatAdminRights(
-                             add_admins=False,
-                             invite_users=True,
-                             change_info=True,
-                             ban_users=True,
-                             delete_messages=True,
-                             pin_messages=True,
-                             anonymous=False,
-                             manage_call=True,
-                         )
             await bot(EditAdminRequest(int(BOTLOG_CHATID), f"@{username}", rights, "ᴀssɪsᴛᴀɴᴛ  ɪᴄᴇ"))
             ppk = "userbot/resources/logogc.jpg"
             await bot(EditPhotoRequest(BOTLOG_CHATID, await bot.upload_file(ppk)))
@@ -201,16 +177,6 @@ async def autobot():
             BOTLOG_CHATID,
             "**Tunggu Sebentar, Sedang MeRestart Heroku untuk Menerapkan Perubahan.**",
         )
-          rights = ChatAdminRights(
-                             add_admins=False,
-                             invite_users=True,
-                             change_info=True,
-                             ban_users=True,
-                             delete_messages=True,
-                             pin_messages=True,
-                             anonymous=False,
-                             manage_call=True,
-                         )
             await bot(EditAdminRequest(int(BOTLOG_CHATID), f"@{username}", rights, "ᴀssɪsᴛᴀɴᴛ  ɪᴄᴇ"))
             ppk = "userbot/resources/logogc.jpg"
             await bot(EditPhotoRequest(BOTLOG_CHATID, await bot.upload_file(ppk)))
