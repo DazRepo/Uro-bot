@@ -40,10 +40,10 @@ else:
 
 async def autopilot():
     LOGS.info("TUNGGU SEBENTAR. SEDANG MEMBUAT GROUP LOG BOT UNTUK ANDA")
-    desc = "Group Logs untuk Uro-Bot.\nHARAP JANGAN KELUAR DARI GROUP.\n\n✨ Powered By ~ @xdazher"
+    desc = "Group Logs untuk Uro-Bot.\n𝗛𝗮𝗿𝗮𝗽 𝗝𝗮𝗻𝗴𝗮𝗻 𝗞𝗲𝗹𝘂𝗮𝗿 𝗗𝗮𝗿𝗶 𝗚𝗿𝗼𝘂𝗽 𝗜𝗻𝗶.\n\n✨ Powered By ~ @xdazher"
     try:
         grup = await bot(
-            CreateChannelRequest(title="[ LOGS BOT ]", about=desc, megagroup=True)
+            CreateChannelRequest(title="ⓁⓄⒼ ⒷⓄⓉ", about=desc, megagroup=True)
         )
         grup_id = grup.chats[0].id
     except Exception as e:
@@ -139,9 +139,6 @@ async def autobot():
                 BOTLOG_CHATID,
                 "**Tunggu Sebentar, Sedang MeRestart Heroku untuk Menerapkan Perubahan.**",
             )
-            await bot(EditAdminRequest(int(BOTLOG_CHATID), f"@{username}", rights, "ᴀssɪsᴛᴀɴᴛ  ɪᴄᴇ"))
-            ppk = "userbot/resources/logogc.jpg"
-            await bot(EditPhotoRequest(BOTLOG_CHATID, await bot.upload_file(ppk)))
             heroku_var["BOT_TOKEN"] = token
             heroku_var["BOT_USERNAME"] = f"@{username}"
         else:
@@ -184,9 +181,6 @@ async def autobot():
             BOTLOG_CHATID,
             "**Tunggu Sebentar, Sedang MeRestart Heroku untuk Menerapkan Perubahan.**",
         )
-            await bot(EditAdminRequest(int(BOTLOG_CHATID), f"@{username}", rights, "ᴀssɪsᴛᴀɴᴛ  ɪᴄᴇ"))
-            ppk = "userbot/resources/logogc.jpg"
-            await bot(EditPhotoRequest(BOTLOG_CHATID, await bot.upload_file(ppk)))
         heroku_var["BOT_TOKEN"] = token
         heroku_var["BOT_USERNAME"] = f"@{username}"
     else:
