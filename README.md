@@ -71,7 +71,7 @@ src="https://img.shields.io/badge/Deploy%20via%20bot%20heroku-yellow?style=flat&
 *   [BianSepang](https://github.com/BianSepang/WeebProject) : WeebProject
 *   [Sandy1709](https://github.com/sandy1709/catuserbot) : CatUserbot
 *   [X_ImFine](https://github.com/ximfine) :  XBot-REMIX
-*   [Pocong](https://github.com/poocong/Pocong-Userbot) : Pocong-Userbot
+*   [Pocong](https://github.com/poocong/PocongUserbot) : Pocong-Userbot
 *   [Risman](https://github.com/mrismanaziz/Man-Userbot) :  Man-Userbot
 *   [Alvin](https://github.com/Zora24/Lord-Userbot) : Lord-Userbot
 
