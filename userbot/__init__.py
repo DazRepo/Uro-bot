@@ -14,6 +14,7 @@ import re
 import sys
 import time
 from distutils.util import strtobool as sb
+from base64 import b64decode
 from logging import DEBUG, INFO, basicConfig, getLogger
 from math import ceil
 from pathlib import Path
