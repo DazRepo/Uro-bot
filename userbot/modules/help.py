@@ -21,7 +21,7 @@ async def help(event):
         if args in CMD_HELP:
             await edit_or_reply(event, str(CMD_HELP[args]))
         else:
-            await edit_delete(event, f"`{args}` **Module yang lu cari gada tod.**")
+            await edit_delete(event, f"`{args}` **Modules yang anda masukan salah**")
     else:
         user = await bot.get_me()
         string = ""
