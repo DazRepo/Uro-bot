@@ -32,11 +32,11 @@ else:
     app = None
 
 async def autopilot():
-    LOGS.info("TUNGGU SEBENTAR. SEDANG MEMBUAT GROUP LOG USERBOT UNTUK ANDA")
-    desc = "Group Logs untuk PocongUserBot.\nHARAP JANGAN KELUAR DARI GROUP INI.\n\n✨ Powered By ~ @PocongProject"
+    LOGS.info("TUNGGU SEBENTAR. SEDANG MEMBUAT GROUP LOG BOT UNTUK ANDA")
+    desc = "Group Logs untuk Uro-Bot.\nHARAP JANGAN KELUAR DARI GROUP.\n\n✨ Powered By ~ @xdazher"
     try:
         grup = await bot(
-            CreateChannelRequest(title="BOT [ JGN DI HAPUS ]", about=desc, megagroup=True)
+            CreateChannelRequest(title="[ LOGS BOT ]", about=desc, megagroup=True)
         )
         grup_id = grup.chats[0].id
     except Exception as e:
@@ -157,14 +157,14 @@ async def autobot():
         await asyncio.sleep(1)
         await bot.send_message(bf, f"@{username}")
         await asyncio.sleep(1)
-        await bot.send_message(bf, f"Managed With By {who.first_name}")
+        await bot.send_message(bf, f"Managed With ☕️ By {who.first_name}")
         await asyncio.sleep(3)
         await bot.send_message(bf, "/setdescription")
         await asyncio.sleep(1)
         await bot.send_message(bf, f"@{username}")
         await asyncio.sleep(1)
         await bot.send_message(
-            bf, f"Owner ~ {who.first_name} \n Powered By ~ @xdazher"
+            bf, f"⚙️ Owner ~ {who.first_name} \n\n⚙️ Powered By ~ @xdazher"
         )
         await bot.send_message(
             BOTLOG_CHATID,
