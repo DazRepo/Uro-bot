@@ -527,7 +527,7 @@ with bot:
             builder = event.builder
             result = None
             query = event.text
-            if event.query.user_id == uid and query.startswith("@passcolmekk"):
+            if event.query.user_id == uid and query.startswith("@paradisesid"):
                 buttons = paginate_help(0, dugmeler, "helpme")
                 result = builder.photo(
                     file=logoman,
@@ -544,9 +544,9 @@ with bot:
                     text="**Uro-bot**\n➖➖➖➖➖➖➖➖\n✣ **Owner Repo :** [DAZII](https://t.me/xdazher)\n✣ **Support :** @paradisesid\n✣ **Repository :** [Uro-bot](https://github.com/DazRepo/Uro-bot)\n➖➖➖➖➖➖➖➖➖➖",
                     buttons=[
                         [
-                            custom.Button.url("𝐺𝑟𝑜𝑢𝑝", "https://t.me/paradisesid"),
+                            custom.Button.url("ɢʀᴏᴜᴘ", "https://t.me/paradisesid"),
                             custom.Button.url(
-                                "𝑅𝑒𝑝𝑜", "https://github.com/DazRepo/Uro-bot"
+                                "ʀᴇᴘᴏ", "https://github.com/DazRepo/Uro-bot"
                             ),
                         ],
                     ],
@@ -590,12 +590,12 @@ with bot:
                     description="Uro-bot | Telethon",
                     url="https://t.me/Uro-bot",
                     thumb=InputWebDocument(INLINE_PIC, 0, "image/jpeg", []),
-                    text=f"**Uro-bot**\n➖➖➖➖➖➖➖➖➖ **UserMode:** [{user.first_name}](tg://user?id={user.id})\n✣ **Assistant:** {tgbotusername}\n➖➖➖➖➖➖➖➖\n**Support:** @paradisesid\n➖➖➖➖➖➖➖➖",
+                    text=f"**Uro-bot**\n➖➖➖➖➖➖➖➖➖\n **UserMode:** [{user.first_name}](tg://user?id={user.id})\n✣ **Assistant:** {tgbotusername}\n➖➖➖➖➖➖➖➖\n**Support:** @paradisesid\n➖➖➖➖➖➖➖➖",
                     buttons=[
                         [
-                            custom.Button.url("𝐺𝑟𝑜𝑢𝑝", "https://t.me/paradisesid"),
+                            custom.Button.url("ɢʀᴏᴜᴘ", "https://t.me/paradisesid"),
                             custom.Button.url(
-                                "𝑅𝑒𝑝𝑜", "https://github.com/DazRepo/Uro-bot"
+                                "ʀᴇᴘᴏ", "https://github.com/DazRepo/Uro-bot"
                             ),
                         ],
                     ],
