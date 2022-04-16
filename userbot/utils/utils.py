@@ -14,6 +14,14 @@ from telethon.tl.types import (
     InputChatUploadedPhoto,
     InputMessagesFilterDocument,
 )
+
+from telethon.tl.types import (
+    ChannelParticipantsAdmins,
+    ChatAdminRights,
+    ChatBannedRights,
+    InputChatPhotoEmpty,
+    MessageMediaPhoto,
+)
     
 import heroku3
 from telethon.tl.functions.channels import CreateChannelRequest
