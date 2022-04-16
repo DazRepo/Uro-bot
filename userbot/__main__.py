@@ -20,7 +20,7 @@ from userbot import BOT_TOKEN, BOT_USERNAME, BOT_VER, BOTLOG_CHATID
 from userbot import CMD_HANDLER as cmd
 from userbot import LOGS, bot, branch, call_py
 from userbot.modules import ALL_MODULES
-from userbot.utils import autobot, checking
+from userbot.utils import autopilot, autobot, checking
 
 try:
     bot.start()
@@ -47,6 +47,11 @@ LOGS.info(
 
 LOGS.info(f"ㄩ尺ㄖ 乃ㄖㄒ ⚙️ V{BOT_VER} [🔥 BERHASIL DIHIDUPKAN! 🔥]")
 
+if not BOTLOG_CHATID:
+    LOGS.info(
+        "Vars BOTLOG_CHATID tidak terisi, Proses Membuat Grup Otomatis."
+    )
+    bot.loop.run_until_complete(autopilot())
 
 async def pocong_userbot_on():
     try:
