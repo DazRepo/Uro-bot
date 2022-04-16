@@ -2,6 +2,7 @@
 # FROM Man-Userbot <https://github.com/mrismanaziz/Man-Userbot>
 # ReCode by @Pocongonlen
 
+import os
 import asyncio
 import importlib
 import logging
@@ -10,6 +11,7 @@ from pathlib import Path
 from random import randint
 
 import heroku3
+from telethon.tl.functions.channels import CreateChannelRequest
 from telethon.tl.functions.contacts import UnblockRequest
 
 from userbot import (
@@ -30,6 +32,22 @@ if HEROKU_APP_NAME is not None and HEROKU_API_KEY is not None:
 else:
     app = None
 
+async def autopilot():
+    LOGS.info("TUNGGU SEBENTAR. SEDANG MEMBUAT GROUP LOG USERBOT UNTUK ANDA")
+    desc = "Group Logs untuk PocongUserBot.\nHARAP JANGAN KELUAR DARI GROUP INI.\n\n✨ Powered By ~ @PocongProject"
+    try:
+        grup = await bot(
+            CreateChannelRequest(title="BOT [ JGN DI HAPUS ]", about=desc, megagroup=True)
+        )
+        grup_id = grup.chats[0].id
+    except Exception as e:
+        LOGS.error(str(e))
+        LOGS.warning(
+            "var BOTLOG_CHATID kamu belum di isi. Buatlah grup telegram dan masukan bot @MissRose_bot lalu ketik /id Masukan id grup nya di var BOTLOG_CHATID"
+        )
+    if not str(grup_id).startswith("-100"):
+        grup_id = int(f"-100{str(grup_id)}")
+    heroku_var["BOTLOG_CHATID"] = grup_id
 
 async def autobot():
     if BOT_TOKEN:
