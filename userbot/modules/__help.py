@@ -26,7 +26,7 @@ from userbot import bot
 from userbot.utils import edit_or_reply, poci_cmd
 
 
-@poci_cmd(pattern="helppp")
+@poci_cmd(pattern="helpme")
 async def _(event):
     if event.fwd_from:
         return
