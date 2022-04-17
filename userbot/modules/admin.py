@@ -2,12 +2,8 @@
 #
 # Licensed under the Raphielscape Public License, Version 1.c (the "License");
 # you may not use this file except in compliance with the License.
-#
-# Ported @mrismanaziz
-# FROM Man-Userbot
-# Recode by @Pocongonlen
 
-import logging
+
 from asyncio import sleep
 
 from telethon.errors import (
@@ -34,7 +30,7 @@ from telethon.tl.types import (
     MessageMediaPhoto,
 )
 
-from userbot import BOTLOG, BOTLOG_CHATID
+from userbot import BOTLOG_CHATID
 from userbot import CMD_HANDLER as cmd
 from userbot import CMD_HELP, DEVS, owner
 from userbot.events import register
@@ -47,6 +43,7 @@ from userbot.utils import (
     man_handler,
     media_type,
 )
+from userbot.utils.logger import logging
 
 # =================== CONSTANT ===================
 PP_TOO_SMOL = "**Gambar Terlalu Kecil**"
@@ -79,11 +76,6 @@ UNBAN_RIGHTS = ChatBannedRights(
     send_inline=None,
     embed_links=None,
 )
-logging.basicConfig(
-    format="[%(levelname)s- %(asctime)s]- %(name)s- %(message)s",
-    level=logging.INFO,
-    datefmt="%H:%M:%S",
-)
 
 LOGS = logging.getLogger(__name__)
 MUTE_RIGHTS = ChatBannedRights(until_date=None, send_messages=True)
@@ -92,6 +84,7 @@ UNMUTE_RIGHTS = ChatBannedRights(until_date=None, send_messages=False)
 
 
 @poci_cmd(pattern="setgpic( -s| -d)$")
+@register(pattern=r"^\.csetgpic( -s| -d)$", sudo=True)
 async def set_group_photo(event):
     "For changing Group dp"
     flag = (event.pattern_match.group(1)).strip()
@@ -197,16 +190,14 @@ async def ban(bon):
         return await edit_or_reply(bon, NO_PERM)
     if reason:
         await edit_or_reply(
-            bon,
-            r"\\**#Banned_User**//"
+            r"\\**#𝘽𝙖𝙣𝙣𝙚𝙙_𝙐𝙨𝙚𝙧**//"
             f"\n\n**First Name:** [{user.first_name}](tg://user?id={user.id})\n"
             f"**User ID:** `{str(user.id)}`\n"
             f"**Reason:** `{reason}`",
         )
     else:
         await edit_or_reply(
-            bon,
-            f"\\\\**#Banned_User**//\n\n**First Name:** [{user.first_name}](tg://user?id={user.id})\n**User ID:** `{user.id}`\n**Action:** `Banned User by {owner}`",
+            f"\\\\**#𝘽𝙖𝙣𝙣𝙚𝙙_𝙐𝙨𝙚𝙧**//\n\n**First Name:** [{user.first_name}](tg://user?id={user.id})\n**User ID:** `{user.id}`\n**Action:** `Banned User by {owner}`",
         )
 
 
@@ -253,8 +244,7 @@ async def spider(spdr):
     if user.id in DEVS:
         return await edit_or_reply(spdr, "**Gagal Mute, Dia Adalah Pembuat Saya 🤪**")
     await edit_or_reply(
-        spdr,
-        r"\\**#Muted_User**//"
+        r"\\**#𝙈𝙪𝙩𝙚𝙙_𝙐𝙨𝙚𝙧**//"
         f"\n\n**First Name:** [{user.first_name}](tg://user?id={user.id})\n"
         f"**User ID:** `{user.id}`\n"
         f"**Action:** `Mute by {owner}`",
@@ -265,15 +255,13 @@ async def spider(spdr):
         await spdr.client(EditBannedRequest(spdr.chat_id, user.id, MUTE_RIGHTS))
         if reason:
             await edit_or_reply(
-                spdr,
-                r"\\**#Mute_User**//"
+                r"\\**#𝙈𝙪𝙩𝙚𝙙_𝙐𝙨𝙚𝙧**//"
                 f"\n\n**First Name:** [{user.first_name}](tg://user?id={user.id})\n"
                 f"**User ID:** `{user.id}`\n"
                 f"**Reason:** `{reason}`",
             )
         else:
             await edit_or_reply(
-                spdr,
                 r"\\**#Mute_User**//"
                 f"\n\n**First Name:** [{user.first_name}](tg://user?id={user.id})\n"
                 f"**User ID:** `{user.id}`\n"
@@ -310,7 +298,7 @@ async def unmoot(unmot):
         return await edit_delete(unmot, "**Terjadi ERROR!**")
 
 
-@man_handler()
+@pocong_handler()
 async def muter(moot):
     try:
         from userbot.modules.sql_helper.gmute_sql import is_gmuted
@@ -353,6 +341,7 @@ async def ungmoot(un_gmute):
         from userbot.modules.sql_helper.gmute_sql import ungmute
     except AttributeError:
         return await edit_delete(un_gmute, NO_SQL)
+    pocong = await edit_or_reply(un_gmute, "`Processing...`")
     user = await get_user_from_event(un_gmute)
     user = user[0]
     if not user:
@@ -376,24 +365,20 @@ async def gspider(gspdr):
         from userbot.modules.sql_helper.gmute_sql import gmute
     except AttributeError:
         return await gspdr.edit(NO_SQL)
+    Pocong = await edit_or_reply(gspdr, "`Processing...`")
     user, reason = await get_user_from_event(gspdr)
     if not user:
         return
     self_user = await gspdr.client.get_me()
     if user.id == self_user.id:
-        return await edit_or_reply(
-            gspdr, "**Tidak Bisa Membisukan Diri Sendiri..（>﹏<）**"
-        )
+        return await edit_or_reply("**Tidak Bisa Membisukan Diri Sendiri..（>﹏<）**")
     if user.id in DEVS:
-        return await edit_or_reply(
-            gspdr, "**Gagal Global Mute, Dia Adalah Pembuat Saya 🤪**"
-        )
-    await edit_or_reply(gspdr, "**Berhasil Membisukan Pengguna!**")
+        return await edit_or_reply("**Gagal Global Mute, Dia Adalah Pembuat Saya 🤪**")
+    await edit_or_reply("**Berhasil Membisukan Pengguna!**")
     if gmute(user.id) is False:
         await edit_delete(gspdr, "**ERROR! Pengguna Sudah Dibisukan.**")
     elif reason:
         await edit_or_reply(
-            gspdr,
             r"\\**#GMuted_User**//"
             f"\n\n**First Name:** [{user.first_name}](tg://user?id={user.id})\n"
             f"**User ID:** `{user.id}`\n"
@@ -401,7 +386,6 @@ async def gspider(gspdr):
         )
     else:
         await edit_or_reply(
-            gspdr,
             r"\\**#GMuted_User**//"
             f"\n\n**First Name:** [{user.first_name}](tg://user?id={user.id})\n"
             f"**User ID:** `{user.id}`\n"
